@@ -1,0 +1,130 @@
+generated: '2026-08-05'
+method: derived
+source:
+  - openapi/tapcart-client-api-openapi-original.json
+  - https://dev.tapcart.com/reference/api-setup-and-auth
+  - https://security.tapcart.com/vulnerability-program.html
+description: >-
+  Which cross-cutting standards the Tapcart API surface actually conforms to,
+  derived from the published OpenAPI and developer docs and probed against the
+  live hosts. No compliance certification (SOC 2, ISO 27001, PCI DSS) is
+  published anywhere on Tapcart's public surface — there is no trust center and
+  no compliance page — so no `Compliance` pointer is emitted in apis.yml and no
+  trust-center artifact was written. The one standards-track document Tapcart
+  does publish is an RFC 9116 security.txt, and even that is served from a
+  non-canonical host.
+standards:
+  - id: openapi-3.0
+    conforms: true
+    evidence: "openapi: 3.0.0 with 12 paths / 14 operations, published on the developer portal."
+  - id: openapi-3.1
+    conforms: false
+    evidence: Spec declares 3.0.0.
+  - id: operation-ids
+    conforms: false
+    evidence: Zero of 14 operations declare an operationId.
+  - id: openapi-tags
+    conforms: partial
+    evidence: >-
+      Every operation carries a tag (Development API - Components / Block
+      Templates / Blocks / Dependencies / Layouts), but the root tags[] array
+      is empty, so no tag has a description.
+  - id: openapi-examples
+    conforms: partial
+    evidence: >-
+      Examples appear on two reusable header parameters (installation-id,
+      session-token) only; no request or response body examples are declared.
+  - id: openapi-security-schemes
+    conforms: true
+    evidence: "components.securitySchemes declares bearerAuth (http/bearer/JWT) and it is applied globally via a root security requirement."
+  - id: openapi-component-reuse
+    conforms: true
+    evidence: "components.schemas defines 14 reusable schemas and components.parameters defines 5 reusable parameters."
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: No error response declares application/problem+json or any content type or schema.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 security scheme in any spec; no
+      /.well-known/oauth-authorization-server on any host (404). The CLI uses
+      an Auth0 interactive browser login, which is not published as a machine
+      OAuth grant.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on all probed hosts.
+  - id: rfc9116-security-txt
+    conforms: partial
+    evidence: >-
+      A valid security.txt with Contact, Expires, Policy and
+      Preferred-Languages is served at
+      https://security.tapcart.com/.well-known/security.txt (200), but NOT at
+      the canonical location on the registrable domain
+      (https://www.tapcart.com/.well-known/security.txt returns 404), and
+      Expires is set ~10 years out against the RFC's recommendation.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Sunset or Deprecation headers documented; the deprecated Mobile Event Webhook is announced only in a docs callout.
+  - id: rfc8615-well-known
+    conforms: partial
+    evidence: >-
+      Only /.well-known/security.txt is served, and only on
+      security.tapcart.com. api-catalog, openid-configuration,
+      oauth-authorization-server, oauth-protected-resource, ai-plugin.json,
+      agent-card.json and agent.json all return 404 on every host.
+  - id: a2a-agent-card
+    conforms: false
+    evidence: No agent card at /.well-known/agent-card.json or /.well-known/agent.json on www, dev or api hosts (all 404).
+  - id: llms-txt
+    conforms: true
+    evidence: "https://dev.tapcart.com/llms.txt returns 200 (10,776 bytes) indexing every docs and reference page as markdown; also mirrored at docs.tapcart.com/llms.txt."
+  - id: model-context-protocol
+    conforms: true
+    evidence: "First-party MCP server shipped in @tapcart/tapcart-cli, documented at https://dev.tapcart.com/docs/mcp with 39 published tools."
+  - id: agent-skills
+    conforms: true
+    evidence: "Provider-published Agent Skills at https://github.com/tapcartinc/tapcart-agent-skills, installable via the skills CLI and the Claude Code plugin system."
+  - id: asyncapi
+    conforms: false
+    evidence: A real webhook event surface exists (15 clickstream event types) but no AsyncAPI document is published.
+  - id: webhook-signing
+    conforms: false
+    evidence: No signature header, shared secret, or verification procedure is documented for either webhook.
+  - id: idempotency
+    conforms: false
+    evidence: No Idempotency-Key header or conditional-request support anywhere in the spec or docs.
+  - id: pagination
+    conforms: false
+    evidence: No collection operation declares pagination parameters or a cursor in the response.
+  - id: rate-limit-headers
+    conforms: false
+    evidence: No RateLimit-* headers, no 429 response, no documented quotas.
+  - id: tls-1.3
+    conforms: true
+    evidence: "www.tapcart.com, dev.tapcart.com and api.tapcart.com all negotiate TLSv1.3 (probed 2026-08-05)."
+  - id: hsts
+    conforms: partial
+    evidence: "HSTS present with max-age 31536000 on www.tapcart.com and dev.tapcart.com; ABSENT on the API host api.tapcart.com."
+  - id: dnssec
+    conforms: false
+    evidence: No DNSSEC on tapcart.com.
+  - id: caa
+    conforms: false
+    evidence: No CAA records on tapcart.com.
+  - id: spf
+    conforms: true
+    evidence: SPF record present on tapcart.com.
+  - id: dmarc
+    conforms: partial
+    evidence: "DMARC present with policy p=quarantine (not reject)."
+compliance_certifications:
+  published: false
+  probed:
+    - {url: 'https://trust.tapcart.com/', status: dns-nxdomain}
+    - {url: 'https://www.tapcart.com/trust', status: 404}
+    - {url: 'https://www.tapcart.com/security', status: 404}
+    - {url: 'https://security.tapcart.com/', status: 200, finding: 'GCS bucket listing for tapcart-vulnerability-program; contains only security.txt and vulnerability-program.html — no certifications named.'}
+  note: >-
+    Tapcart processes Shopify merchant shopper data and runs push messaging, so
+    a SOC 2 posture is plausible, but nothing is published publicly. Recorded
+    as absent, not assumed.

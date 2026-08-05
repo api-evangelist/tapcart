@@ -1,0 +1,177 @@
+generated: '2026-08-05'
+method: derived
+source:
+  - mcp/tapcart-mcp.yml
+  - openapi/tapcart-client-api-openapi-original.json
+description: >-
+  Binds each published Tapcart MCP tool to the OpenAPI operation(s) that back
+  it, so an agent tool inherits a real input contract from the spec instead of
+  a guessed one. Two caveats are load-bearing and are recorded rather than
+  papered over. First, the Tapcart OpenAPI declares NO operationId on any of
+  its 14 operations, so REST operations are referenced here by
+  "METHOD /path" — the crosswalk cannot use operationIds because the provider
+  does not publish them. Second, the MCP server is the Tapcart CLI, not a thin
+  REST proxy: a large share of its tools operate purely on local files
+  (layouts, scaffolding, lint, logs, types) and never touch the HTTP API at
+  all. Those are recorded in local_only[] rather than mcp_only[], because they
+  are not a hidden remote capability — they are a local developer surface that
+  has no API equivalent by design.
+surfaces:
+  openapi:
+    file: openapi/tapcart-client-api-openapi-original.json
+    title: Tapcart @tapcart/app-pages API
+    version: 1.0.0
+    server: https://api.tapcart.com/
+    operations: 14
+    operation_ids_declared: 0
+    gated: false
+  mcp:
+    file: mcp/tapcart-mcp.yml
+    transport: stdio
+    tools: 39
+    gated: true
+    gate: >-
+      Local stdio process requiring Auth0 credentials in ~/.tapcart/auth.json
+      and a Tapcart Enterprise plan; tools/list could not be introspected over
+      the network, so bindings below are by name/semantics from the published
+      docs.
+  graphql:
+    present: false
+crosswalk:
+  - tool: tapcart_components_listRemote
+    category: components
+    rest: ["GET /client/{appId}/components"]
+    binding: rest
+    confidence: high
+    note: Docs describe it as "List remote components for the configured appId" — the single spec operation with that shape.
+  - tool: tapcart_components_pull
+    category: components
+    rest: ["GET /client/{appId}/components/{componentKey}", "GET /client/{appId}/components"]
+    binding: rest
+    confidence: medium
+    note: Pull one/all; fans out to the by-key read for a single component and the list read for all. Writes the result to ./components locally.
+  - tool: tapcart_components_push
+    category: components
+    rest: ["POST /client/components", "PUT /client/components/{componentId}"]
+    binding: rest
+    confidence: high
+    note: Mode-gated. The create operation upserts when forceUpdate is true, which matches the CLI's push semantics.
+  - tool: tapcart_component_versions_list
+    category: components
+    rest: ["GET /client/{appId}/components/{componentKey}/versions"]
+    binding: rest
+    confidence: high
+  - tool: tapcart_component_versions_set
+    category: components
+    rest: ["PUT /client/{appId}/components/{componentKey}/versions"]
+    binding: rest
+    confidence: high
+    note: Mode-gated. Spec operation is "Update the version index of an App Studio Component".
+  - tool: tapcart_blocks_listRemote
+    category: blocks
+    rest: ["GET /client/{appId}/blocks"]
+    binding: rest
+    confidence: high
+    note: Spec operation returns all merchant-owned custom block templates for an app.
+  - tool: tapcart_blocks_pull
+    category: blocks
+    rest: ["GET /client/{appId}/blockTemplates/{blockTemplateId}", "GET /client/{appId}/blocks"]
+    binding: rest
+    confidence: medium
+    note: >-
+      Pull one/all. The docs address blocks by label; the spec addresses them
+      by blockTemplateId, so the CLI resolves label to id before the read.
+  - tool: tapcart_blocks_push
+    category: blocks
+    rest: ["POST /client/blockTemplates", "PUT /client/blockTemplates/{blockTemplateId}"]
+    binding: rest
+    confidence: high
+    note: Mode-gated.
+  - tool: tapcart_block_versions_list
+    category: blocks
+    rest: ["GET /client/{appId}/blockTemplates/{blockTemplateId}"]
+    binding: rest
+    confidence: medium
+    note: >-
+      The spec exposes no dedicated block-template version-list operation; the
+      by-id read returns the template with the version selected by
+      versionIndex, which is the closest published surface.
+  - tool: tapcart_block_versions_set
+    category: blocks
+    rest: ["PUT /client/{appId}/blockTemplates/{blockTemplateId}/versions"]
+    binding: rest
+    confidence: high
+    note: Mode-gated. Spec operation updates versionIndex on an existing BlockTemplate.
+  - tool: tapcart_dependencies_pullRemote
+    category: dependencies
+    rest: ["GET /client/{appId}/dependencies"]
+    binding: rest
+    confidence: high
+  - tool: tapcart_dependencies_pushRemote
+    category: dependencies
+    rest: ["POST /client/{appId}/dependencies"]
+    binding: rest
+    confidence: high
+    note: Mode-gated.
+mcp_only: []
+local_only:
+  - {tool: tapcart_project_info, reason: Reads local tapcart.config.json and environment; no API surface.}
+  - {tool: tapcart_project_create, reason: Local scaffolding of project files and directories.}
+  - {tool: tapcart_types_sync, reason: Writes .tapcart/types and jsconfig.json for editor IntelliSense.}
+  - {tool: tapcart_auth_status, reason: Reads local ~/.tapcart/auth.json credential state.}
+  - {tool: tapcart_auth_login_instructions, reason: Returns a command string; the Auth0 browser flow is not a documented REST operation.}
+  - {tool: tapcart_auth_logout, reason: Clears local credentials.}
+  - {tool: tapcart_dev_instructions, reason: Returns a shell command for the local hot-reload dev server.}
+  - {tool: tapcart_blocks_createLocal, reason: Local folder scaffolding.}
+  - {tool: tapcart_components_createLocal, reason: Local folder scaffolding.}
+  - {tool: tapcart_layout_new, reason: Operates on local layout files under .tapcart/layouts.}
+  - {tool: tapcart_layout_add, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_remove, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_reorder, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_set, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_tab_add, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_tab_remove, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_tab_rename, reason: Local layout file mutation.}
+  - {tool: tapcart_layout_list, reason: Reads local layout files.}
+  - {tool: tapcart_layout_show, reason: Reads local layout files.}
+  - {tool: tapcart_layout_validate, reason: Validates local layouts against a schema.}
+  - {tool: tapcart_dependencies_listLocal, reason: Reads tapcart.config.json.}
+  - {tool: tapcart_dependencies_addLocal, reason: Edits tapcart.config.json; validates against esm.sh, not the Tapcart API.}
+  - {tool: tapcart_dependencies_removeLocal, reason: Edits tapcart.config.json.}
+  - {tool: tapcart_lint, reason: Runs ESLint locally.}
+  - {tool: tapcart_log_show, reason: Reads ~/.tapcart/cli.log.}
+  - {tool: tapcart_docs_search, reason: Searches dev.tapcart.com docs; not an operation in the Development API spec.}
+  - {tool: tapcart_mcp_capabilities, reason: MCP server self-description.}
+rest_only:
+  - capability: layouts
+    operations: ["GET /client/{appId}/layouts"]
+    note: >-
+      The API can list an app's layouts, but every MCP layout tool works on
+      local files under .tapcart/layouts — there is no tool that reads the
+      remote layout list.
+  - capability: components
+    operations: ["PUT /client/components/{componentId}"]
+    note: >-
+      Direct update-by-componentId. The CLI push path is documented against the
+      create/upsert operation, so this operation has no distinct tool.
+coverage:
+  tools_published: 39
+  tools_bound_to_rest: 12
+  tools_local_only: 27
+  tools_mcp_only: 0
+  rest_operations_total: 14
+  rest_operations_with_a_tool: 12
+  rest_operations_without_a_tool: 2
+findings:
+  - >-
+    The Tapcart OpenAPI declares zero operationIds across 14 operations. This
+    costs the spec on contract-quality scoring and forces every downstream
+    binding (this crosswalk, Arazzo workflows, generated SDKs) to address
+    operations by method+path. Adding stable operationIds is the single
+    cheapest improvement available to this spec.
+  - >-
+    Only one of Tapcart's two registered OpenAPI documents is published to the
+    developer portal. The ReadMe project registers both tapcart-client-api.json
+    (captured here) and tapcart-api-services.json, but the latter has no
+    published reference pages — its push-notification operations are visible
+    only as a schema-validation warning in the portal's own payload.

@@ -42,5 +42,15 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Tapcart is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/tapcart-stock
+Tapcart is a mobile commerce platform for Shopify merchants, turning a Shopify storefront into a
+native iOS and Android shopping app. Beyond the no-code app builder it ships a real developer
+platform: App Studio (a React-based custom block and component framework), a public Development API
+at `api.tapcart.com`, an Insights metrics API, a clickstream webhook, a first-party CLI with a
+bundled MCP server, and published AI agent skills.
+
+- Website — https://www.tapcart.com/
+- Developer portal — https://dev.tapcart.com/
+- API reference — https://dev.tapcart.com/reference
+- GitHub — https://github.com/tapcartinc
+- Status — https://status.tapcart.co/
+- Security disclosure — https://security.tapcart.com/vulnerability-program.html

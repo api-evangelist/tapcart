@@ -1,0 +1,117 @@
+generated: '2026-08-05'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=tapcart
+description: >-
+  First-party Tapcart client libraries and developer tooling, verified against
+  the public npm registry (registry.npmjs.org) on 2026-08-05 and cross-checked
+  against the Tapcart developer docs at dev.tapcart.com. Tapcart publishes only
+  to npm — no PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or
+  crates.io packages were found. Everything published under the @tapcart npm
+  scope is treated as first-party; unscoped `tapcart-*` packages published by
+  the same team (webbridge/embed lineage) are marked official where the docs
+  reference them, and third-party packages that merely integrate with Tapcart
+  (e.g. @abra-promotions/*) are excluded.
+registries_checked:
+  - {registry: npm, url: 'https://registry.npmjs.org/-/v1/search?text=tapcart', status: 200, found: true}
+  - {registry: pypi, url: 'https://pypi.org/search/?q=tapcart', found: false}
+  - {registry: rubygems, found: false}
+  - {registry: packagist, found: false}
+  - {registry: crates.io, found: false}
+  - {registry: nuget, found: false}
+  - {registry: maven-central, found: false}
+  - {registry: pkg.go.dev, found: false}
+packages:
+  - language: javascript
+    registry: npm
+    name: "@tapcart/tapcart-cli"
+    url: https://www.npmjs.com/package/@tapcart/tapcart-cli
+    version: 2.0.1
+    license: MIT
+    install: npm install -g @tapcart/tapcart-cli
+    bin: tapcart
+    description: >-
+      The Tapcart CLI — command-line interface for managing and developing App
+      Studio blocks and components. Also ships the Tapcart MCP server
+      (`npx -y @tapcart/tapcart-cli@latest mcp`). Requires the Tapcart
+      Enterprise plan. Command surface catalogued in cli/tapcart-cli.yml.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/app-studio-sdk"
+    url: https://www.npmjs.com/package/@tapcart/app-studio-sdk
+    version: 2.2.0
+    install: npm install @tapcart/app-studio-sdk
+    description: Tapcart WebBridge React SDK — the App Studio client SDK for custom blocks.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/app-studio-runtime"
+    url: https://www.npmjs.com/package/@tapcart/app-studio-runtime
+    version: 0.2.3
+    install: npm install @tapcart/app-studio-runtime
+    description: Shared block runtime for Tapcart App Studio — renderer, hooks, and host contract.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/app-studio-components"
+    url: https://www.npmjs.com/package/@tapcart/app-studio-components
+    version: 1.0.1
+    install: npm install @tapcart/app-studio-components
+    description: Library for accessing global App Studio components across environments.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/app-studio-utils"
+    url: https://www.npmjs.com/package/@tapcart/app-studio-utils
+    version: 0.0.16
+    install: npm install @tapcart/app-studio-utils
+    description: Utility library for Tapcart's App Studio.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/mobile-components"
+    url: https://www.npmjs.com/package/@tapcart/mobile-components
+    version: 0.17.1
+    install: npm install @tapcart/mobile-components
+    description: >-
+      Tapcart mobile UI component library used inside custom blocks; the CLI
+      wires editor IntelliSense for its imports. See
+      components/tapcart-components.yml.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/webbridge-react"
+    url: https://www.npmjs.com/package/@tapcart/webbridge-react
+    version: 1.15.0
+    install: npm install @tapcart/webbridge-react
+    description: Tapcart WebBridge React SDK — lets web pages rendered inside a Tapcart app talk to the native host.
+    official: true
+  - language: javascript
+    registry: npm
+    name: tapcart-embed
+    url: https://www.npmjs.com/package/tapcart-embed
+    version: 5.0.0
+    install: npm install tapcart-embed
+    description: Tapcart Web Plugins — self-contained web applications embedded into a Tapcart app.
+    official: true
+  - language: javascript
+    registry: npm
+    name: tapcart-codeblocks-sdk
+    url: https://www.npmjs.com/package/tapcart-codeblocks-sdk
+    version: 1.1.0
+    install: npm install tapcart-codeblocks-sdk
+    description: >-
+      Tapcart Codeblocks SDK — lets merchant-developed codeblocks interact with
+      the Tapcart app. Predecessor of the App Studio SDK.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@tapcart/create-tapcart-app"
+    url: https://www.npmjs.com/package/@tapcart/create-tapcart-app
+    version: 1.0.4
+    install: npm init @tapcart/tapcart-app@latest
+    description: >-
+      Project scaffolder. DEPRECATED by the publisher — the package description
+      directs users to `tapcart project create` from @tapcart/tapcart-cli.
+    deprecated: true
+    official: true

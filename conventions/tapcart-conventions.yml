@@ -1,0 +1,115 @@
+generated: '2026-08-05'
+method: derived
+source:
+  - openapi/tapcart-client-api-openapi-original.json
+  - https://dev.tapcart.com/reference/api-setup-and-auth
+  - https://dev.tapcart.com/reference/insights-api
+  - https://dev.tapcart.com/reference/clickstream
+description: >-
+  Cross-cutting request/response semantics across Tapcart's three public
+  surfaces, derived from the OpenAPI and the developer docs. The short version:
+  Tapcart publishes very few cross-cutting contracts. There is no idempotency
+  key, no pagination, no request-id tracing, no rate-limit signaling, and no
+  structured error envelope. Upsert semantics are expressed as a `forceUpdate`
+  body flag rather than a conditional request or an idempotency key.
+authentication:
+  style: mixed
+  development_api: HTTP bearer JWT (Authorization header), applied globally in the spec
+  insights_api: static api-key header + app-id tenant header
+  cli_and_mcp: Auth0 interactive browser login cached in ~/.tapcart/auth.json
+  detail: authentication/tapcart-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotency parameter, and no conditional
+    request support (no ETag / If-Match) appears anywhere in the spec or docs.
+    The closest thing is a `forceUpdate` boolean in the component and
+    blockTemplate create bodies, which turns a create into an upsert — that is
+    an upsert switch, not an idempotency contract: a retried create without
+    forceUpdate has no defined replay behavior. Because idempotency is genuinely
+    absent, no `Idempotency` pointer is emitted in apis.yml.
+pagination:
+  supported: false
+  note: >-
+    No list operation declares limit, offset, page, cursor or after
+    parameters, and no list response declares a next/cursor field. Collection
+    reads (components, blocks, layouts, dependencies, block versions) return
+    unbounded arrays.
+filtering_and_expansion:
+  field_expansion: false
+  sparse_fieldsets: false
+  documented_toggles:
+    - name: includeCode
+      surface: MCP (tapcart_blocks_listRemote / components listRemote)
+      description: >-
+        Returns an LLM-friendly summary by default; set includeCode true for
+        full block/component code payloads. A payload-weight control exposed on
+        the tool layer, not on the REST layer.
+    - name: forceUpdate
+      surface: "POST /client/components, PUT /client/blockTemplates/{blockTemplateId}"
+      description: Upsert an existing record instead of failing on conflict.
+    - name: versionIndex
+      surface: component and blockTemplate version operations
+      description: Selects or promotes a specific stored version of an artifact.
+metadata:
+  supported: false
+  note: No free-form metadata bag on any resource.
+request_tracing:
+  request_id_header: null
+  supported: false
+  note: >-
+    No X-Request-Id / Request-Id / trace header is documented on any API
+    surface. The clickstream WEBHOOK is the exception and goes the other way —
+    Tapcart sends eventid/deviceid/appid/eventtype headers and an
+    mp_metadata.mp_event_id body field to the consumer for deduplication.
+versioning:
+  detail: lifecycle/tapcart-lifecycle.yml
+  api_contract: unversioned path on the Development API; /insights-pro/v2 on Insights
+  resource_level: components and blockTemplates carry a versionIndex with list and promote operations
+error_envelope:
+  format: undocumented
+  rfc9457: false
+  detail: errors/tapcart-problem-types.yml
+  note: >-
+    No error response in the spec declares a content type or schema. A
+    ResponseMsg {msg: string} component exists but is not referenced by any
+    error response.
+rate_limiting:
+  documented: false
+  headers: null
+  note: >-
+    No rate limits, quotas, burst policy or 429 response are documented on any
+    Tapcart API surface, and no RateLimit-* headers are described. The
+    vulnerability disclosure program explicitly lists "rate limiting and
+    brute-force protections" as out of scope for reports, which implies limits
+    exist but are not contractual.
+content_negotiation:
+  request: application/json
+  response: application/json
+  note: >-
+    Only 5 of the 34 declared responses actually name a content type; the rest
+    declare a description with no content block, so the response media type is
+    implied rather than specified.
+  locale:
+    parameter: Accept-Language
+    declared_in: components.parameters
+    referenced_by_operations: false
+webhook_conventions:
+  detail: asyncapi/tapcart-webhooks.yml
+  signing: none documented
+  deduplication: mp_metadata.mp_event_id
+  retries: 5 minutes of retries on the deprecated mobile-event webhook; unpublished for clickstream
+agent_safety:
+  mode_gating: >-
+    The MCP server implements a plan/apply gate on every remote-write tool
+    (default behaves as "plan", `"mode": "apply"` required to write). This is a
+    provider-shipped human-in-the-loop control and is the strongest
+    agent-safety convention Tapcart publishes. See mcp/tapcart-mcp.yml.
+gaps:
+  - No idempotency contract.
+  - No pagination on any collection.
+  - No request-id / correlation header.
+  - No documented rate limits or 429 semantics.
+  - No structured error envelope.
+  - No webhook payload signing.

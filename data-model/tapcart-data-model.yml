@@ -1,0 +1,136 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/tapcart-client-api-openapi-original.json
+description: >-
+  Entity-relationship graph derived from the 14 schemas in the Tapcart
+  Development API OpenAPI — from explicit $ref links and from id-reference
+  fields (appId, blockTemplateId, layoutTemplateId, customBlockId). The model
+  is a template/instance pattern: an app owns Layouts and Blocks, each of which
+  may be an instance of a shared Template it inherits from. Identifiers are
+  MongoDB-style `_id` strings; every root object is scoped to an `appId`, which
+  is the tenant key across the whole platform.
+identifier_convention:
+  primary_key: _id
+  format: 24-character hex string (MongoDB ObjectId shape, e.g. 507f1f77bcf86cd799439011 in the CLI docs)
+  tenant_key: appId
+  note: >-
+    appId is the merchant's Tapcart application identifier, retrievable from
+    https://app.tapcart.com/settings. It appears as a path parameter on 9 of
+    14 operations and as a field on every root entity.
+timestamps:
+  fields: [createdAt, updatedAt]
+  present_on: [BlockTemplate, Block, LayoutTemplate, Layout]
+entities:
+  - name: App
+    implicit: true
+    description: >-
+      Not declared as a schema, but the root tenant — every operation path is
+      /client/{appId}/... and every root entity carries appId. Its dependency
+      list is managed by the dependencies operations.
+    key: appId
+  - name: BlockTemplate
+    description: A reusable, shareable block definition — source code plus a manifest options list.
+    key: _id
+    fields: [_id, appId, label, code, manifestOptionsList, createdAt, updatedAt]
+    operations:
+      - "POST /client/blockTemplates"
+      - "PUT /client/blockTemplates/{blockTemplateId}"
+      - "GET /client/{appId}/blockTemplates/{blockTemplateId}"
+      - "PUT /client/{appId}/blockTemplates/{blockTemplateId}/versions"
+  - name: Block
+    description: >-
+      A block placed in an app. May be standalone or bound to a BlockTemplate
+      (useBlockTemplate + blockTemplateId), in which case it carries only
+      manifestConfig overrides.
+    key: _id
+    fields: [_id, appId, label, code, manifestOptionsList, manifestConfig, readOnly, blockTemplateId, useBlockTemplate, createdAt, updatedAt]
+    operations:
+      - "GET /client/{appId}/blocks"
+  - name: LayoutTemplate
+    description: A reusable layout definition — a typed arrangement of blocks.
+    key: _id
+    fields: [_id, appId, label, type, blocks, createdAt, updatedAt]
+  - name: Layout
+    description: >-
+      A layout in an app. May be bound to a LayoutTemplate
+      (useLayoutTemplate + layoutTemplateId).
+    key: _id
+    fields: [_id, appId, label, type, blocks, readOnly, layoutTemplateId, useLayoutTemplate, createdAt, updatedAt]
+    operations:
+      - "GET /client/{appId}/layouts"
+  - name: Component
+    description: >-
+      An App Studio component as rendered inside a page — type, specifications,
+      properties and data. Note the naming collision: the REST resource at
+      /client/components (an App Studio Component with code, key, label and
+      versions) is NOT the same shape as this `Component` schema, which is the
+      render-time unit inside BlockPageData. The spec declares no schema for
+      the App Studio Component resource itself.
+    key: null
+    fields: [type, specifications, properties, data]
+  - name: CustomBlock
+    description: A reference to a custom block by id, with tags.
+    fields: [id, customBlockId, tags]
+  - name: Page
+    description: An app screen — typed, with a destination and a data payload whose shape varies by page type.
+    fields: [appId, title, type, destination, data, styles]
+  - name: DefaultPageData
+    description: Standard page payload — content and thumbnail URLs, auth requirement, a titlebar and a menu.
+    fields: [contentUrl, thumbnailUrl, thumbnailAssetId, displayTitle, isCustomerAuthRequired, titlebar, menu]
+  - name: BlockPageData
+    description: Block-based page payload — three render zones each holding an array of Components.
+    fields: [thumbnailUrl, thumbnailAssetId, stickyHeader, scrollableContent, stickyFooter]
+  - name: CartPageData
+    description: Cart page payload — header, productsList and footer sections.
+    fields: [header, productsList, footer]
+  - name: Titlebar
+    description: Page titlebar configuration.
+    fields: [type, data, styles, options]
+  - name: NavItem
+    description: A navigation entry — type, title, image, destination and styles.
+    fields: [type, title, image, destination, styles]
+  - name: pageData
+    description: Menu entry payload used inside DefaultPageData.menu.
+    fields: [title, image, destination]
+  - name: ResponseMsg
+    description: "A bare {msg: string} envelope. Defined but not referenced by any declared response."
+    fields: [msg]
+relationships:
+  - {from: App, to: BlockTemplate, type: has_many, via: appId}
+  - {from: App, to: Block, type: has_many, via: appId}
+  - {from: App, to: LayoutTemplate, type: has_many, via: appId}
+  - {from: App, to: Layout, type: has_many, via: appId}
+  - {from: Block, to: BlockTemplate, type: belongs_to, via: blockTemplateId, optional: true, guard: useBlockTemplate}
+  - {from: Layout, to: LayoutTemplate, type: belongs_to, via: layoutTemplateId, optional: true, guard: useLayoutTemplate}
+  - {from: Layout, to: Block, type: has_many, via: blocks, note: "blocks is an untyped array of objects — no $ref to Block, so the link is by convention not by schema."}
+  - {from: LayoutTemplate, to: Block, type: has_many, via: blocks, note: Same untyped array shape.}
+  - {from: DefaultPageData, to: Titlebar, type: has_one, via: titlebar, ref: true}
+  - {from: DefaultPageData, to: pageData, type: has_many, via: menu, ref: true}
+  - {from: BlockPageData, to: Component, type: has_many, via: stickyHeader, ref: true}
+  - {from: BlockPageData, to: Component, type: has_many, via: scrollableContent, ref: true}
+  - {from: BlockPageData, to: Component, type: has_many, via: stickyFooter, ref: true}
+  - {from: Page, to: DefaultPageData, type: has_one, via: data, polymorphic: true, note: "Page.data has no declared type — the concrete shape is one of DefaultPageData, BlockPageData or CartPageData, selected by Page.type, but the spec declares no discriminator."}
+  - {from: CustomBlock, to: Block, type: belongs_to, via: customBlockId}
+versioning_model:
+  description: >-
+    Components and BlockTemplates are versioned server-side. A push stores a
+    new version as a draft; a separate versions operation sets the active
+    versionIndex to promote it live. The versions collection is addressable
+    (GET .../versions) for components; for block templates the by-id read
+    returns the version selected by versionIndex.
+  operations:
+    - "GET /client/{appId}/components/{componentKey}/versions"
+    - "PUT /client/{appId}/components/{componentKey}/versions"
+    - "PUT /client/{appId}/blockTemplates/{blockTemplateId}/versions"
+gaps:
+  - >-
+    The App Studio Component resource — the thing the /client/components
+    operations create, update and read — has no schema in components.schemas.
+    Its shape (owner, label, key, code, forceUpdate) is visible only in the
+    inline request body.
+  - >-
+    Layout.blocks and LayoutTemplate.blocks are untyped object arrays with no
+    $ref, so the layout-to-block relationship is not machine-derivable from the
+    schema alone.
+  - Page.data is polymorphic with no discriminator.
+  - No response schema is declared on any error response.

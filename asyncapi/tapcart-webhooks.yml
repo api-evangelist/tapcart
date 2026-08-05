@@ -1,0 +1,97 @@
+generated: '2026-08-05'
+method: searched
+source:
+  - https://dev.tapcart.com/reference/clickstream
+  - https://dev.tapcart.com/reference/insights-stream-setup-guide
+spec_type: none
+description: >-
+  Tapcart publishes NO AsyncAPI document. It does publish a real, fully
+  documented event surface — two webhook products — so this artifact captures
+  the webhook catalog rather than fabricating a spec. The current surface is
+  the Clickstream Webhook, self-service configurable from the Tapcart dashboard
+  with per-event-type opt-in. The older Mobile Event Webhook is explicitly
+  deprecated in favour of clickstream and requires emailing Tapcart to
+  subscribe.
+webhooks:
+  - name: Clickstream Webhook
+    status: current
+    docs: https://dev.tapcart.com/reference/clickstream
+    doc_updated_at: '2026-06-29T17:11:23.000Z'
+    delivery: HTTP POST to a merchant-configured HTTPS endpoint
+    configuration: >-
+      Tapcart dashboard, Settings > Webhooks. Globally enable/disable, set the
+      HTTPS endpoint, and select all or a subset of event types to control data
+      volume.
+    envelope:
+      fields:
+        - {name: event, type: string, description: The event type name.}
+        - {name: data, type: object, description: Event-specific payload; structure varies by event type.}
+        - {name: properties, type: object, description: Device, locale and session context present on every event.}
+        - {name: mp_metadata, type: object, description: "Analytics identifiers: mp_event_id (globally unique, use for deduplication) and mp_session_id (the app session)."}
+    headers:
+      - {name: appid, description: Tapcart app identifier.}
+      - {name: eventtype, description: The event type name, for pre-parse filtering.}
+      - {name: deviceid, description: Device identifier.}
+      - {name: eventid, description: Event identifier.}
+    deduplication: mp_metadata.mp_event_id
+    events:
+      - {name: applicationInstalled, description: App installed for the first time}
+      - {name: applicationOpened, description: App opened / brought to foreground}
+      - {name: cartAdd, description: Item added to the Shopify cart}
+      - {name: cartRemove, description: Item removed from the Shopify cart}
+      - {name: cartUpdated, description: Cart state changed (quantity update, discount applied, etc.)}
+      - {name: checkoutCreated, description: Shopper tapped the checkout button}
+      - {name: collectionViewed, description: Shopper opened a product collection}
+      - {name: loggedIn, description: Shopper logged in}
+      - {name: loggedOut, description: Shopper logged out}
+      - {name: pageView, description: Shopper viewed a screen}
+      - {name: search, description: Shopper submitted a search query}
+      - {name: productViewed, description: Shopper opened a product detail page}
+      - {name: purchaseCompleted, description: Shopper completed a purchase / placed an order}
+      - {name: pushOpened, description: Shopper opened a push notification}
+      - {name: wishlistItemAdded, description: Shopper added an item to a Tapcart wishlist}
+  - name: Mobile Event Webhook
+    status: deprecated
+    deprecation_note: >-
+      "Mobile events have been deprecated in favor of clickstream events and
+      will eventually be removed." Tapcart directs consumers to migrate to
+      clickstream webhooks, which carry a richer dataset, more event types, and
+      are self-service configurable.
+    docs: https://dev.tapcart.com/reference/insights-stream-setup-guide
+    doc_updated_at: '2026-04-28T20:01:29.000Z'
+    delivery: HTTP POST to a merchant-supplied HTTPS endpoint
+    configuration: >-
+      Not self-service. The merchant emails their endpoint URL to
+      developertools@tapcart.co and Tapcart subscribes them to a dedicated
+      topic.
+    guaranteed_fields:
+      - {name: event_type, type: string, description: "The name of the event (e.g. AppOpened, ProductViewed)."}
+      - {name: event_id, type: string, description: Unique identifier for the event.}
+      - {name: app_id, type: string, description: Unique merchant identifier.}
+      - {name: device_id, type: string, description: Unique device identifier.}
+      - {name: timestamp, type: number, description: Event timestamp in epoch milliseconds.}
+      - {name: device_properties, type: object, description: Device information.}
+      - {name: app_properties, type: object, description: App configuration data.}
+      - {name: shopify_properties, type: object, description: Shopify user data.}
+    consumer_response_codes:
+      - {code: 200, meaning: Successful request}
+      - {code: 400, meaning: Invalid request}
+      - {code: 401, meaning: Unauthorized request}
+      - {code: 403, meaning: Forbidden}
+      - {code: 422, meaning: Custom errors}
+      - {code: 429, meaning: Throttling errors}
+      - {code: "500-511", meaning: Server errors}
+    retry_policy: >-
+      On a 400 or 500 response Tapcart retries the event for 5 minutes; if it
+      still fails to process, Tapcart stops retrying. No dead-letter surface is
+      documented.
+gaps:
+  - No AsyncAPI (or CloudEvents) document is published for either webhook.
+  - >-
+    No payload signing, shared secret, or verification header is documented on
+    either webhook — the clickstream headers (appid, eventtype, deviceid,
+    eventid) are descriptive, not authenticating. A consumer cannot
+    cryptographically verify that a POST came from Tapcart.
+  - >-
+    The clickstream docs publish no retry/backoff policy; only the deprecated
+    mobile event webhook documents one (5 minutes, then drop).

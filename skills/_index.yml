@@ -1,0 +1,45 @@
+generated: '2026-08-05'
+method: searched
+source: https://github.com/tapcartinc/tapcart-agent-skills
+description: >-
+  Tapcart publishes its own Agent Skills. These files are saved VERBATIM from
+  the provider's public repository (tapcartinc/tapcart-agent-skills) — API
+  Evangelist did not author them. They package the Tapcart CLI workflow for an
+  AI coding agent: first-time project setup, auth, dependency management, lint
+  and logs (tapcart-project), and block/component create-pull-push-version
+  operations with a plan-confirm-apply gate on writes (tapcart-blocks).
+install:
+  skills_cli: npx skills add tapcartinc/tapcart-agent-skills
+  claude_code_plugin: /plugin install github:tapcartinc/tapcart-agent-skills
+docs: https://dev.tapcart.com/docs/ai-agent-skills
+repository: https://github.com/tapcartinc/tapcart-agent-skills
+skills:
+  - file: tapcart-project.md
+    name: tapcart-project
+    description: >-
+      Set up and manage a Tapcart CLI project — first-time setup, auth,
+      dependencies, linting, logs, and the layout dev server. The user only
+      needs to supply their App ID.
+    api: openapi/tapcart-client-api-openapi-original.json
+    surface: cli
+    published_by: Tapcart
+    source: https://github.com/tapcartinc/tapcart-agent-skills/blob/main/skills/tapcart-project/SKILL.md
+  - file: tapcart-blocks.md
+    name: tapcart-blocks
+    description: >-
+      Create, pull, push, dev, and manage versions for App Studio blocks and
+      global components, with a plan then confirm then apply gate on every
+      remote write.
+    api: openapi/tapcart-client-api-openapi-original.json
+    surface: cli
+    published_by: Tapcart
+    source: https://github.com/tapcartinc/tapcart-agent-skills/blob/main/skills/tapcart-blocks/SKILL.md
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://api.github.com/repos/tapcartinc/tapcart-agent-skills
+  http_status: 200
+notes:
+  - >-
+    Both skills drive the CLI, which in turn calls the Development API
+    documented in openapi/. The tool-to-operation bindings are recorded in
+    mcp/tapcart-tool-crosswalk.yml.

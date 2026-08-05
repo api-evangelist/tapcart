@@ -1,0 +1,68 @@
+generated: '2026-08-05'
+method: searched
+source: https://dev.tapcart.com/docs/tapcart-cli
+description: >-
+  The Tapcart CLI is the primary developer interface to App Studio — it is how
+  custom blocks and global components are created, developed locally with hot
+  reload, pushed, versioned and published. It also ships the Tapcart MCP server
+  (`tapcart mcp`) and is the thing the provider's published agent skills drive.
+  Access requires the Tapcart Enterprise plan. The package itself is
+  catalogued in packages/tapcart-packages.yml; this artifact captures its
+  command surface, transcribed from the developer docs and the published agent
+  skills.
+docs:
+  - https://dev.tapcart.com/docs/tapcart-cli
+  - https://dev.tapcart.com/docs/app-studio-quick-start
+  - https://dev.tapcart.com/docs/cicd-support
+package: "@tapcart/tapcart-cli"
+version_observed: 2.0.1
+license: MIT
+binary: tapcart
+requires_plan: Tapcart Enterprise
+prerequisites:
+  node: ">= 20 (the published agent skill states >= 23)"
+  app_id_source: https://app.tapcart.com/settings (App Settings > Tapcart CLI API Key)
+install:
+  npm_global: npm install -g @tapcart/tapcart-cli
+  npx: npx -y @tapcart/tapcart-cli@latest
+  note: "Authoritative install instructions live in the package README on npm."
+commands:
+  auth:
+    - {name: "auth login", description: "Opens a browser window for Auth0 login and stores the token locally so subsequent commands do not re-prompt."}
+    - {name: "auth logout", description: "Clear locally stored credentials from ~/.tapcart/auth.json."}
+    - {name: "auth status", description: "Report local credential status."}
+  project:
+    - {name: "project create", description: "Create a Tapcart project. Flags: -a/--app-id, -p/--folder-path. Run with no flags for interactive prompts. Also writes .tapcart/types/ and jsconfig.json for editor IntelliSense."}
+    - {name: "types sync", description: "Refresh .tapcart/types/ and jsconfig.json when IntelliSense stops working (older project, CLI upgrade)."}
+  blocks:
+    - {name: "block pull", description: "Pull remote blocks into ./blocks. -a pulls all."}
+    - {name: "block push", description: "Build and push local blocks to the dashboard."}
+    - {name: "block create", description: "Scaffold a new block folder locally."}
+    - {name: "block versions", description: "List block versions and flag which is local vs live; promote a version to live."}
+  components:
+    - {name: "component pull", description: "Pull remote global components into ./components. -a pulls all."}
+    - {name: "component push", description: "Build and push local components to the dashboard."}
+    - {name: "component create", description: "Scaffold a new component folder locally."}
+    - {name: "component versions", description: "List component versions and set the live version."}
+  layouts:
+    - {name: "layout", description: "Create, list, show, validate and edit local layouts under .tapcart/layouts — add/remove/reorder blocks, set manifestConfig values, and manage tabs on tabbed layouts."}
+  dependencies:
+    - {name: "dependency list / add / remove", description: "Manage the ESM dependency list in tapcart.config.json; additions are validated against esm.sh."}
+    - {name: "dependency pull / push", description: "Sync the dependency list with the remote app config."}
+  quality:
+    - {name: "lint", description: "Run ESLint over local blocks and components, with optional auto-fix."}
+    - {name: "logs", description: "Show recent lines from ~/.tapcart/cli.log; secret patterns are redacted."}
+  dev:
+    - {name: "dev", description: "Start the local hot-reload dev server for a block, component or layout (devMode block|component|layout, plus target/port/verbose)."}
+  agent:
+    - {name: "mcp", description: "Run the Tapcart MCP server over stdio for MCP-compatible clients. See mcp/tapcart-mcp.yml."}
+help:
+  discovery: "tapcart -h and tapcart <command> -h are documented as the authoritative command reference."
+  note: >-
+    Tapcart does not publish a full command reference page; the docs direct
+    developers to the CLI's own help output. Commands above are transcribed
+    from the quick-start, CLI guide, CI/CD page, MCP tool tables and the
+    provider's published agent skills — flag-level detail is therefore
+    incomplete by the provider's own design.
+ci_cd:
+  docs: https://dev.tapcart.com/docs/cicd-support

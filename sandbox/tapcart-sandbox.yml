@@ -1,0 +1,82 @@
+generated: '2026-08-05'
+method: searched
+source:
+  - https://dev.tapcart.com/docs/mock-data-vs-hooks
+  - https://dev.tapcart.com/docs/blocks
+  - https://dev.tapcart.com/docs/mcp
+description: >-
+  Tapcart publishes NO hosted sandbox, no test-mode key prefix, and no
+  test-vs-live account separation. What it does publish is a local development
+  surface, and this artifact records that honestly rather than inventing a
+  sandbox that does not exist. Three things stand in for one: a local hot-reload
+  dev server, a developer-controlled mockData.json fixture file, and a
+  plan/apply gate on the MCP write tools. Crucially, the docs state the limit
+  explicitly — mockData.json does not mock network-backed hooks, so any block
+  using useCollection() hits the real Tapcart APIs with real app context even
+  in local development.
+test_live_separation:
+  supported: false
+  key_prefixes: null
+  test_mode: null
+  note: >-
+    There is one set of credentials. The CLI's Auth0 login and the app's API
+    key are production credentials; there is no test key, test app, or sandbox
+    tenant documented.
+local_development:
+  dev_server:
+    command: tapcart dev
+    modes: [block, component, layout]
+    flags: [target, port, verbose]
+    description: >-
+      Hot-reload local server for previewing a block, component or layout. Run
+      with no target to pick one from a browser picker.
+    mcp_note: >-
+      The MCP server does not start the dev server; tapcart_dev_instructions
+      returns the command for a human or agent to run.
+  fixtures:
+    file: mockData.json
+    location: project root (exactly one per project)
+    created_by: "tapcart project create / tapcart block create (never overwrites an existing file)"
+    read_by: the local dev server, surfaced through useVariables()
+    overrides: [cart, customer, product, collection, device, and other app variables]
+    published_example:
+      note: Transcribed verbatim from the docs; identifiers are placeholders in the source.
+      value: |
+        {
+          "customer": { "id": "<UUID>", "firstName": "Taylor" },
+          "device": { "locale": "en-US" },
+          "cart": { "items": [] }
+        }
+    limitation: >-
+      "mockData.json does not mock or override network-backed hook results." A
+      block that uses useCollection() or any other network-backed hook still
+      fetches real data from Tapcart APIs, and local preview may require a
+      valid project/app context.
+write_safety:
+  draft_then_live:
+    description: >-
+      Pushing a block or component stores it as a new version on the server as
+      a DRAFT; it does not go live until promoted. `--live`/`-l` on push, or a
+      versions_set call, promotes it. This draft stage is the closest thing to
+      a staging environment Tapcart offers.
+  mcp_mode_gate:
+    description: >-
+      Every remote-write MCP tool defaults to "plan" (no remote write) and
+      requires "mode": "apply" to actually write. The published agent skills
+      describe the same flow as plan then confirm then apply.
+    tools: [tapcart_blocks_push, tapcart_block_versions_set, tapcart_components_push, tapcart_component_versions_set, tapcart_dependencies_pushRemote, tapcart_lint]
+  no_local_tracking_warning: >-
+    Documented hazard: "The Tapcart CLI does not track any local changes.
+    Pulling a component will overwrite any changes with the currently live
+    version."
+webhook_testing:
+  documented: false
+  note: >-
+    No webhook replay, event trigger, test-event, or local-forwarding tool is
+    published for the clickstream webhook. A merchant must point the dashboard
+    at a reachable HTTPS endpoint and generate real app activity.
+gaps:
+  - No hosted sandbox or test tenant.
+  - No test-mode API keys or key prefixes.
+  - No webhook event simulator or replay.
+  - Network-backed hooks cannot be mocked locally.

@@ -1,0 +1,59 @@
+generated: '2026-08-05'
+method: searched
+description: >-
+  Results of probing the /.well-known/ discovery surface for every host in
+  apis.yml (Website, DeveloperPortal, baseURL) and the OpenAPI servers[] host
+  (https://api.tapcart.com), plus the security subdomain. Status is the HTTP
+  code observed at fetch time on 2026-08-05. The only document served is
+  security.txt, and it is NOT on the apex or the API host — it is on
+  security.tapcart.com, a Google Cloud Storage bucket (tapcart-vulnerability-program)
+  fronted by Cloudflare. www.tapcart.com, dev.tapcart.com and api.tapcart.com all
+  answer 404 for every /.well-known/ path probed, so a client following RFC 9116
+  against the primary domain would not find Tapcart's security contact.
+hosts:
+  - host: https://security.tapcart.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/plain
+        file: tapcart-security.txt
+  - host: https://www.tapcart.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://dev.tapcart.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+  - host: https://api.tapcart.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+notes:
+  - >-
+    The ReadMe-hosted developer portal advertises api_catalog: true and
+    mcp_server_card: true in its AI discovery configuration, but
+    https://dev.tapcart.com/.well-known/api-catalog returned 404 both with the
+    default Accept header and with Accept: application/linkset+json.
+  - >-
+    No A2A agent card was found at either the canonical
+    /.well-known/agent-card.json or the legacy /.well-known/agent.json on any
+    host, so no a2a/ artifact was written.

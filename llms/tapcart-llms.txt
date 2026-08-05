@@ -1,0 +1,99 @@
+# Tapcart Developer Docs Documentation
+
+> Build on top of the biggest mobile commerce platform
+
+## Guides
+- [App Studio Quick Start](https://dev.tapcart.com/docs/app-studio-quick-start.md): Learn how to build a Custom Block using App Studio CLI and SDK
+- [Tapcart CLI](https://dev.tapcart.com/docs/tapcart-cli.md)
+- [Blocks](https://dev.tapcart.com/docs/blocks.md)
+- [Examples](https://dev.tapcart.com/docs/examples.md): Example-driven guides for building Custom Blocks with the Tapcart CLI.
+- [Example - Navigate with openScreen](https://dev.tapcart.com/docs/example-open-screen-navigate.md): Navigate between screens/tabs using the openScreen action.
+- [Example - Destination picker (openScreen)](https://dev.tapcart.com/docs/example-destination-picker-open-screen.md): Use a destination picker in manifest.json and navigate with openScreen.
+- [Example - Banner with CTA destination](https://dev.tapcart.com/docs/example-banner-cta.md): Build a clickable image/banner that navigates using a destination picker.
+- [Example - Countdown timer](https://dev.tapcart.com/docs/example-countdown-timer.md): Display a countdown timer to a date/time, optionally linking to a destination.
+- [Example - Accordion (flex-list)](https://dev.tapcart.com/docs/example-accordion-flex-list.md): Render an accordion using a flex-list manifest option.
+- [Example - Add to cart button (PDP)](https://dev.tapcart.com/docs/example-add-to-cart-button.md): Add the currently-viewed product variant to cart using productId and variantId from page parameters.
+- [Example - Add to cart with personalization (mockData.json)](https://dev.tapcart.com/docs/example-add-to-cart-personalization-mock-data.md): Use a text input to collect a personalization value and add it as a line item attribute. Includes a mockData.json example.
+- [Example - Goal progress bar (mockData.json)](https://dev.tapcart.com/docs/example-goal-progress-mock-data.md): Build a simple progress bar using cart totals from useVariables(). Includes a mockData.json example.
+- [Example - Collection Bar (useCollection)](https://dev.tapcart.com/docs/example-collection-bar.md): A configurable collection bar demonstrating useCollection, loading, and empty states.
+- [Example - Collections Menu (flex-list + destination + drawer)](https://dev.tapcart.com/docs/example-collections-menu-flex-list.md): A configurable collections menu using flex-list, destinations, and a drawer UI.
+- [Local development data - mockData.json vs hooks](https://dev.tapcart.com/docs/mock-data-vs-hooks.md): Understand what mockData.json can and cannot do when developing blocks locally.
+- [Components](https://dev.tapcart.com/docs/components.md)
+- [Layouts](https://dev.tapcart.com/docs/layouts.md)
+- [Manifest Options for Custom Blocks](https://dev.tapcart.com/docs/manifest-options-for-custom-blocks.md)
+- [Dependencies](https://dev.tapcart.com/docs/dependencies.md)
+- [CI/CD Support](https://dev.tapcart.com/docs/cicd-support.md)
+- [Debugging](https://dev.tapcart.com/docs/debugging.md)
+- [MCP](https://dev.tapcart.com/docs/mcp.md): This MCP server exposes Tapcart CLI capabilities (project setup, blocks, components, layouts, dependencies, auth, logs, lint, docs search, etc.) to MCP-compatible clients like Windsurf/Cursor via a local process.
+- [AI Agent Skills](https://dev.tapcart.com/docs/ai-agent-skills.md): The Tapcart AI agent skill lets you setup your AI agent to do all of the Tapcart CLI work for you.
+- [code-quality](https://dev.tapcart.com/docs/code-quality.md)
+- [screen/open](https://dev.tapcart.com/docs/action-open-screen.md): Navigate to screens and routes with flexible presentation options
+- [go/back](https://dev.tapcart.com/docs/goback.md): Navigate backward to previous screen
+- [go/home](https://dev.tapcart.com/docs/gohome.md): Navigate back to Home from anywhere in the app.
+- [go/top](https://dev.tapcart.com/docs/gohome-copy.md): Scroll back to the top of the screen
+- [cart/add](https://dev.tapcart.com/docs/cartadd.md): Add products to your cart
+- [cart/remove](https://dev.tapcart.com/docs/cartremove.md): Remove products to your cart
+- [cart/clear](https://dev.tapcart.com/docs/cartclear.md): Clears all items from cart
+- [cart/line/update](https://dev.tapcart.com/docs/cartlineupdate.md): Update existing line items in the cart
+- [cart/updateNotes](https://dev.tapcart.com/docs/cartupdatenotes.md): Add, update or remove a Note on the cart
+- [cart/updateAttributes](https://dev.tapcart.com/docs/cartupdateattributes.md): Update custom attributes on the cart
+- [cart/discount/add](https://dev.tapcart.com/docs/cartdiscountadd.md): Apply a discount code to the cart
+- [cart/discount/remove](https://dev.tapcart.com/docs/cartdiscountadd-copy.md): Remove specific discount codes from cart
+- [cart/checkout](https://dev.tapcart.com/docs/cartcheckout.md): Initiate checkout process for the current cart
+- [customer/auth](https://dev.tapcart.com/docs/customerauth.md): Redirect to the authentication flow
+- [customer/logout](https://dev.tapcart.com/docs/customerlogout.md): Log out the current customer
+- [customer/refresh](https://dev.tapcart.com/docs/customerlogout-copy.md): Refreshes customer data from the server
+- [storage/add](https://dev.tapcart.com/docs/storageadd.md): Save persistent data to the app
+- [storage/update](https://dev.tapcart.com/docs/storageupdate.md): Update a storage item
+- [storage/remove](https://dev.tapcart.com/docs/storageremove.md): Remove an item from storage
+- [trigger/haptic](https://dev.tapcart.com/docs/triggerhaptic.md): Trigger haptic vibration in the app
+- [trigger/alert](https://dev.tapcart.com/docs/triggeralert.md): Show an alert in the app
+- [trigger/gallery](https://dev.tapcart.com/docs/triggergallery.md): Open a media gallery in the app
+- [switch/app](https://dev.tapcart.com/docs/triggerhaptic-copy.md)
+- [switch/market](https://dev.tapcart.com/docs/marketswitch.md)
+- [loyalty/customer](https://dev.tapcart.com/docs/loyaltycustomer.md): fetch customer loyalty data
+- [loyalty/tiers](https://dev.tapcart.com/docs/loyaltytiers.md): fetches loyalty tiers
+- [loyalty/history](https://dev.tapcart.com/docs/loyaltyhistory.md): fetches customer loyalty history
+- [loyalty/rewards](https://dev.tapcart.com/docs/loyaltyrewards.md): fetches a list of loyalty rewards
+- [loyalty/redeem/reward](https://dev.tapcart.com/docs/loyaltyredeemreward.md): Redeem a reward
+- [loyalty/record/activity](https://dev.tapcart.com/docs/loyaltyrecordactivity.md)
+- [Track](https://dev.tapcart.com/docs/analytics.md): Track custom analytics events
+- [destination](https://dev.tapcart.com/docs/destination.md)
+- [presentation](https://dev.tapcart.com/docs/presentation.md): Custom navigation transitions, animations and styles
+- [header](https://dev.tapcart.com/docs/header.md)
+- [headerItem](https://dev.tapcart.com/docs/headeritem.md)
+- [badge](https://dev.tapcart.com/docs/badge.md)
+- [image](https://dev.tapcart.com/docs/image.md)
+- [Customer](https://dev.tapcart.com/docs/customer.md)
+- [Cart](https://dev.tapcart.com/docs/cart-1.md)
+- [Orders](https://dev.tapcart.com/docs/orders.md)
+- [Storage](https://dev.tapcart.com/docs/storage-1.md)
+- [Session](https://dev.tapcart.com/docs/session.md)
+- [Device](https://dev.tapcart.com/docs/device.md)
+- [Loyalty](https://dev.tapcart.com/docs/loyalty.md)
+- [Overview](https://dev.tapcart.com/docs/overview.md)
+- [Methods and Access](https://dev.tapcart.com/docs/methods-and-access.md)
+- [Customizations](https://dev.tapcart.com/docs/customizations.md)
+- [Tapcart CLI](https://dev.tapcart.com/docs/tapcart-cli-1.md)
+- [Merchant Dashboard](https://dev.tapcart.com/docs/merchant-dashboard.md)
+- [App Studio](https://dev.tapcart.com/docs/mobile-content-server.md)
+
+## API Reference
+- [API  Auth](https://dev.tapcart.com/reference/api-setup-and-auth.md)
+- [Create an App Studio Component.](https://dev.tapcart.com/reference/post_client-components.md): Creates a new App Studio Component or updates an existing one if `forceUpdate` is true. Requires write auth.
+- [Update an App Studio Component.](https://dev.tapcart.com/reference/put_client-components-componentid.md): Updates an existing app studio component. Requires write auth.
+- [Get an App Studio Component by key.](https://dev.tapcart.com/reference/get_client-appid-components-componentkey.md): Retrieves an App Studio Component by its key. Requires write auth.
+- [Get all App Studio Components for an app](https://dev.tapcart.com/reference/get_client-appid-components.md): Retrieves all App Studio Components for a specific app, as well as tapcart components, if specified. Requires write auth.
+- [Get versions of an App Studio Component](https://dev.tapcart.com/reference/get_client-appid-components-componentkey-versions.md): Retrieves all versions of an App Studio Component by its key. Requires write auth
+- [Update the version index of an App Studio Component](https://dev.tapcart.com/reference/put_client-appid-components-componentkey-versions.md): Updates the active version of an App Studio Component by setting its version index. Requires write auth.
+- [Create a BlockTemplate.](https://dev.tapcart.com/reference/post_client-blocktemplates.md): Creates a new BlockTemplate. Requires write auth.
+- [Update a BlockTemplate.](https://dev.tapcart.com/reference/put_client-blocktemplates-blocktemplateid.md): Updates an existing block template if `forceUpdate` is true. Requires write auth.
+- [Update the versionIndex of an existing BlockTemplate.](https://dev.tapcart.com/reference/put_client-appid-blocktemplates-blocktemplateid-versions.md): Updates the `versionIndex` of a specified BlockTemplate by blockTemplateId.
+- [Retrieve a BlockTemplate by blockTemplateId.](https://dev.tapcart.com/reference/get_client-appid-blocktemplates-blocktemplateid.md): Retrieves a BlockTemplate along with the specified version based on `versionIndex`. Requires read auth
+- [Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth.](https://dev.tapcart.com/reference/get_client-appid-blocks.md)
+- [Update dependencies for a specific app.](https://dev.tapcart.com/reference/post_client-appid-dependencies.md): Updates the dependencies of an app identified by the appId. Requires write auth
+- [Get dependencies for a specific app.](https://dev.tapcart.com/reference/get_client-appid-dependencies.md): Retrieves the dependencies of an app identified by the appId.
+- [Retrieve layouts for a specific app](https://dev.tapcart.com/reference/get_client-appid-layouts.md): Returns a list of layouts for the specified appId. Requires read auth.
+- [Insights API](https://dev.tapcart.com/reference/insights-api.md)
+- [Clickstream Webhook](https://dev.tapcart.com/reference/clickstream.md)
+- [Mobile Event Webhook](https://dev.tapcart.com/reference/insights-stream-setup-guide.md)

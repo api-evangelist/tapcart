@@ -1,0 +1,106 @@
+generated: '2026-08-05'
+method: searched
+source: openapi/tapcart-client-api-openapi-original.json
+docs: https://dev.tapcart.com/reference/api-setup-and-auth
+description: >-
+  Tapcart's authentication surface is not uniform: the three public API
+  surfaces each use a different credential. The Development API (App Studio)
+  declares HTTP bearer with a JWT in its OpenAPI and applies it globally. The
+  Insights Metrics API uses a static per-organization api-key header alongside
+  an app-id header. The CLI and its bundled MCP server authenticate a human
+  through an Auth0 browser login and cache the result in ~/.tapcart/auth.json.
+  The published auth page documents the first two interchangeably
+  ("Authorization: Bearer ${accessToken}" or "api-key"), without stating which
+  surface takes which.
+summary:
+  types: [http, apiKey]
+  http_schemes: [bearer]
+  api_key_in: [header]
+  oauth2_flows: []
+  note: >-
+    No oauth2 or openIdConnect security scheme is declared in any published
+    spec, and no scope or permission reference page exists — so no scopes/
+    artifact was written. The CLI's Auth0 login is a human interactive flow,
+    not a documented machine OAuth grant; no
+    /.well-known/oauth-authorization-server or
+    /.well-known/oauth-protected-resource is served on any Tapcart host (all
+    404, see well-known/tapcart-well-known.yml).
+schemes:
+  - name: bearerAuth
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+    applies_to: Tapcart App Studio Development API (https://api.tapcart.com)
+    declared_globally: true
+    sources:
+      - openapi/tapcart-client-api-openapi-original.json
+  - name: api-key
+    type: apiKey
+    in: header
+    parameter_name: api-key
+    applies_to: Tapcart Insights Metrics API (https://api.tapcart.com/insights-pro/v2/metrics)
+    description: >-
+      "A static key with authorized access for your organization." Merchants
+      without access are told to contact Tapcart support — the key is not
+      self-service issuable.
+    sources:
+      - https://dev.tapcart.com/reference/insights-api
+  - name: app-id
+    type: apiKey
+    in: header
+    parameter_name: app-id
+    role: tenant-selector
+    description: >-
+      The organization's Tapcart app id. Documented as good practice on all
+      requests; must match the appId in the request body when using
+      session-based auth. Not a credential on its own.
+    sources:
+      - https://dev.tapcart.com/reference/insights-api
+  - name: installation-id
+    type: apiKey
+    in: header
+    parameter_name: installation-id
+    role: reusable-parameter
+    description: >-
+      Declared as a reusable header parameter in components.parameters but not
+      referenced by any published operation. Present in the spec, unused by the
+      documented surface.
+    sources:
+      - openapi/tapcart-client-api-openapi-original.json
+  - name: session-token
+    type: apiKey
+    in: header
+    parameter_name: session-token
+    role: reusable-parameter
+    description: >-
+      Declared as a reusable header parameter in components.parameters but not
+      referenced by any published operation. Implies a session-based auth mode
+      alongside the bearer JWT.
+    sources:
+      - openapi/tapcart-client-api-openapi-original.json
+interactive:
+  - surface: Tapcart CLI + MCP server
+    mechanism: Auth0 browser login
+    command: tapcart auth login
+    credential_store: ~/.tapcart/auth.json
+    plan_gate: Tapcart Enterprise plan required for CLI / custom block access.
+    app_id_source: https://app.tapcart.com/settings (Tapcart CLI API Key section)
+    sources:
+      - https://dev.tapcart.com/docs/tapcart-cli
+      - https://dev.tapcart.com/docs/mcp
+authorization_model:
+  granularity: read vs write
+  description: >-
+    Operation descriptions in the Development API distinguish "Requires read
+    auth" from "Requires write auth", but the spec expresses both with the same
+    global bearerAuth requirement and defines no scopes. The read/write split
+    is documented in prose only and is not machine-readable.
+gaps:
+  - No OAuth 2.0 / OIDC machine-to-machine flow is documented for any surface.
+  - No scope or permission reference page exists.
+  - >-
+    The read/write distinction is prose-only; per-operation security
+    requirements in the OpenAPI do not differentiate it.
+  - >-
+    Insights API keys are issued by support, not self-service, so an agent
+    cannot obtain a credential without a human loop.

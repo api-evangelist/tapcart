@@ -1,0 +1,108 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Tapcart App Studio Development API
+  version: 1.0.0
+extends: openapi/tapcart-client-api-openapi-original.json
+x-generated: '2026-08-05'
+x-method: generated
+x-source: >-
+  Derived from the provider's published OpenAPI (harvested from the ReadMe
+  developer portal SSR payload at
+  https://dev.tapcart.com/reference/post_client-components) plus the Tapcart
+  developer docs. This overlay carries API Evangelist's annotations only; the
+  harvested spec is never mutated. The single highest-value change a consumer
+  of this overlay should note is that the source spec declares NO operationIds
+  — the operationId actions below propose stable ids so downstream tooling
+  (Arazzo, SDK generators, the MCP tool crosswalk) can address operations by
+  name. They are API Evangelist proposals, not provider-published identifiers.
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-profile: https://apis.io/provider/tapcart
+      x-apievangelist-reviewed: '2026-08-05'
+      x-provider: Tapcart
+      x-docs: https://dev.tapcart.com/reference
+      x-source-spec: tapcart-client-api.json
+      x-source-note: >-
+        Tapcart registers two OpenAPI documents on its ReadMe project —
+        tapcart-client-api.json (this one, published to the reference section)
+        and tapcart-api-services.json (registered but with no published
+        reference pages). Only the published one could be harvested.
+  - target: $.tags
+    update:
+      - name: Development API - Components
+        description: Create, read, version and promote App Studio Components for an app.
+      - name: Development API - Block Templates
+        description: Create, read, version and promote reusable BlockTemplates.
+      - name: Development API - Blocks
+        description: Read merchant-owned custom block templates for an app.
+      - name: Development API - Dependencies
+        description: Read and update an app's ESM dependency list (resolved through esm.sh).
+      - name: Development API - Layouts
+        description: Read the layouts configured for an app.
+  - target: $.paths['/client/components'].post
+    update:
+      operationId: createAppStudioComponent
+      x-apievangelist-note: Upserts when forceUpdate is true. No idempotency key is supported; a bare retry is not defined.
+      x-auth-level: write
+  - target: $.paths['/client/components/{componentId}'].put
+    update:
+      operationId: updateAppStudioComponent
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/components/{componentKey}'].get
+    update:
+      operationId: getAppStudioComponentByKey
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/components'].get
+    update:
+      operationId: listAppStudioComponents
+      x-auth-level: write
+      x-apievangelist-note: Unpaginated collection read.
+  - target: $.paths['/client/{appId}/components/{componentKey}/versions'].get
+    update:
+      operationId: listAppStudioComponentVersions
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/components/{componentKey}/versions'].put
+    update:
+      operationId: setAppStudioComponentVersion
+      x-auth-level: write
+      x-apievangelist-note: Promotes a stored version to live by setting its version index.
+  - target: $.paths['/client/blockTemplates'].post
+    update:
+      operationId: createBlockTemplate
+      x-auth-level: write
+  - target: $.paths['/client/blockTemplates/{blockTemplateId}'].put
+    update:
+      operationId: updateBlockTemplate
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/blockTemplates/{blockTemplateId}/versions'].put
+    update:
+      operationId: setBlockTemplateVersion
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/blockTemplates/{blockTemplateId}'].get
+    update:
+      operationId: getBlockTemplate
+      x-auth-level: read
+  - target: $.paths['/client/{appId}/blocks'].get
+    update:
+      operationId: listBlocks
+      x-auth-level: read
+      x-apievangelist-note: Unpaginated collection read.
+  - target: $.paths['/client/{appId}/dependencies'].post
+    update:
+      operationId: updateAppDependencies
+      x-auth-level: write
+  - target: $.paths['/client/{appId}/dependencies'].get
+    update:
+      operationId: getAppDependencies
+      x-auth-level: read
+  - target: $.paths['/client/{appId}/layouts'].get
+    update:
+      operationId: listAppLayouts
+      x-auth-level: read
+  - target: $.components.schemas.ResponseMsg
+    update:
+      description: >-
+        A bare message envelope. Defined in the source spec but not referenced
+        by any declared response — the actual error body shape is undocumented.
+        See errors/tapcart-problem-types.yml.

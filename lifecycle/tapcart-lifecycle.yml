@@ -1,0 +1,94 @@
+generated: '2026-08-05'
+method: searched
+source:
+  - https://status.tapcart.co/
+  - https://dev.tapcart.com/reference/insights-stream-setup-guide
+  - openapi/tapcart-client-api-openapi-original.json
+description: >-
+  Tapcart's lifecycle posture is uneven. There is a real status page and a real
+  deprecation notice on the webhook surface, but no published versioning policy,
+  no dated changelog on the developer portal, no SLA document, and no
+  Sunset/Deprecation header support. Versioning is inconsistent across
+  surfaces: the Development API is unversioned in its path
+  (/client/...) with an info.version of 1.0.0, while the Insights API carries
+  /insights-pro/v2/ in the URI.
+versioning:
+  scheme: mixed
+  development_api:
+    scheme: none-in-path
+    path_prefix: /client
+    info_version: 1.0.0
+    source: openapi/tapcart-client-api-openapi-original.json
+  insights_api:
+    scheme: uri-path
+    current: v2
+    path_prefix: /insights-pro/v2
+    source: https://dev.tapcart.com/reference/insights-api
+  policy_url: null
+  policy_published: false
+  artifact_versioning:
+    note: >-
+      Tapcart does version the artifacts the API manages — App Studio
+      Components and BlockTemplates each carry a versionIndex with list and
+      promote operations, and the CLI/MCP surface exposes versions_list and
+      versions_set. That is object-level versioning, not API-contract
+      versioning.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations: []
+  deprecated_surfaces:
+    - name: Mobile Event Webhook
+      status: deprecated
+      docs: https://dev.tapcart.com/reference/insights-stream-setup-guide
+      notice: >-
+        "Mobile events have been deprecated in favor of clickstream events and
+        will eventually be removed. Please consider updating your consumer to
+        use clickstream webhooks instead."
+      replacement: Clickstream Webhook (https://dev.tapcart.com/reference/clickstream)
+      sunset_date: null
+      note: >-
+        The deprecation is announced in a docs callout only. No sunset date, no
+        Sunset/Deprecation response header, and no migration deadline.
+    - name: "@tapcart/create-tapcart-app"
+      status: deprecated
+      registry: npm
+      notice: "DEPRECATED — use `tapcart project create` from @tapcart/tapcart-cli instead."
+      replacement: "@tapcart/tapcart-cli"
+      source: https://www.npmjs.com/package/@tapcart/create-tapcart-app
+    - name: tapcart-codeblocks-sdk
+      status: superseded
+      notice: >-
+        Codeblocks predates App Studio; new development is documented against
+        @tapcart/app-studio-sdk. Not formally marked deprecated on npm.
+sla:
+  url: null
+  uptime_target: null
+  published: false
+status_page:
+  url: https://status.tapcart.co/
+  http_status: 200
+  note: >-
+    Served from tapcart.co, not tapcart.com. It is linked from the tapcart.com
+    footer but is not referenced anywhere in the developer documentation, so a
+    developer working only from dev.tapcart.com would not find it.
+changelog:
+  published: false
+  note: >-
+    The ReadMe developer portal has its changelog module disabled
+    (modules.changelog = false in the portal configuration), and
+    https://dev.tapcart.com/changelog returns 404. Individual doc pages carry
+    an updatedAt timestamp in their markdown frontmatter, which is the only
+    dated change signal available. No changelog/ artifact was written.
+support:
+  help_center: https://help.tapcart.com/en/
+  developer_tools_email: developertools@tapcart.co
+  security_email: security@tapcart.co
+gaps:
+  - No versioning policy or breaking-change policy published.
+  - No deprecation policy document; deprecations are announced ad hoc in docs callouts.
+  - No RFC 8594 Sunset or Deprecation response headers.
+  - No SLA or uptime commitment published.
+  - No developer changelog or release notes.

@@ -1,0 +1,142 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/tapcart-client-api-openapi-original.json
+format: ad-hoc
+description: >-
+  Error catalog derived from every 4xx/5xx response declared in the Tapcart
+  Development API OpenAPI, cross-checked against the webhook consumer response
+  table and the Insights API error prose. Tapcart does NOT use RFC 9457
+  problem+json: no error response in the spec declares a content type or a
+  response schema at all — the only error-shaped component is `ResponseMsg`,
+  an object with a single free-text `msg` string, and it is not referenced by
+  any error response. There is no error code, no error type URI, and no
+  machine-readable discriminator, so an agent can only branch on HTTP status.
+envelope:
+  documented: false
+  candidate_schema: ResponseMsg
+  candidate_shape: {msg: string}
+  note: >-
+    ResponseMsg is defined in components.schemas but is not wired to any
+    declared error response, so the actual error body is undocumented.
+problems:
+  - status: 400
+    title: Bad request — missing required fields
+    detail: Bad request, including missing required fields.
+    source_operations:
+      - "POST /client/components"
+      - "PUT /client/components/{componentId}"
+  - status: 400
+    title: Bad request — invalid versionIndex or missing required fields
+    detail: Bad request, including invalid `versionIndex` or missing required fields.
+    source_operations:
+      - "POST /client/blockTemplates"
+      - "PUT /client/blockTemplates/{blockTemplateId}"
+  - status: 400
+    title: Bad request — invalid app ID
+    detail: Bad request, invalid app ID.
+    source_operations:
+      - "GET /client/{appId}/components"
+  - status: 400
+    title: Bad request — missing component key
+    detail: Bad request, missing component key.
+    source_operations:
+      - "GET /client/{appId}/components/{componentKey}"
+      - "GET /client/{appId}/components/{componentKey}/versions"
+  - status: 400
+    title: Bad request — missing component label or invalid version index
+    detail: Bad request, missing component label or invalid version index.
+    source_operations:
+      - "PUT /client/{appId}/components/{componentKey}/versions"
+  - status: 400
+    title: Invalid or missing versionIndex
+    detail: Invalid or missing `versionIndex`.
+    source_operations:
+      - "PUT /client/{appId}/blockTemplates/{blockTemplateId}/versions"
+  - status: 400
+    title: Invalid versionIndex or label not found
+    detail: Invalid versionIndex or label not found.
+    source_operations:
+      - "GET /client/{appId}/blockTemplates/{blockTemplateId}"
+  - status: 401
+    title: Unauthorized access
+    detail: >-
+      Unauthorized access. Declared only on the five write operations
+      (component create/update, blockTemplate create/update, blockTemplate
+      by-id read). Read operations on components, blocks, dependencies and
+      layouts declare no 401 at all, which is a spec gap rather than an
+      indication that they are unauthenticated — bearerAuth is applied
+      globally.
+    remediation: >-
+      Supply Authorization: Bearer <JWT>. Write operations require write auth;
+      read operations require read auth (documented in prose only).
+    source_operations:
+      - "POST /client/components"
+      - "PUT /client/components/{componentId}"
+      - "POST /client/blockTemplates"
+      - "PUT /client/blockTemplates/{blockTemplateId}"
+      - "GET /client/{appId}/blockTemplates/{blockTemplateId}"
+  - status: 404
+    title: App Studio Component not found
+    detail: App Studio Component not found. On create/update this is returned when forceUpdate targets a component that does not exist.
+    source_operations:
+      - "GET /client/{appId}/components/{componentKey}"
+      - "GET /client/{appId}/components/{componentKey}/versions"
+      - "POST /client/components"
+      - "PUT /client/components/{componentId}"
+  - status: 404
+    title: App Studio Component or version not found
+    detail: App Studio Component or version not found.
+    source_operations:
+      - "PUT /client/{appId}/components/{componentKey}/versions"
+  - status: 404
+    title: BlockTemplate not found
+    detail: >-
+      BlockTemplate not found — when force updating, when the specified
+      blockTemplateId does not exist, or when the requested template version
+      does not exist.
+    source_operations:
+      - "POST /client/blockTemplates"
+      - "PUT /client/blockTemplates/{blockTemplateId}"
+      - "PUT /client/{appId}/blockTemplates/{blockTemplateId}/versions"
+      - "GET /client/{appId}/blockTemplates/{blockTemplateId}"
+  - status: 404
+    title: App not found
+    detail: App not found.
+    source_operations:
+      - "GET /client/{appId}/blocks"
+  - status: 404
+    title: Layouts not found
+    detail: Layouts not found.
+    source_operations:
+      - "GET /client/{appId}/layouts"
+  - status: 404
+    title: No dependencies found for the given appId
+    detail: No dependencies found for the given appId.
+    source_operations:
+      - "POST /client/{appId}/dependencies"
+      - "GET /client/{appId}/dependencies"
+  - status: 500
+    title: Internal server error
+    detail: Internal server error. Declared on every operation in the spec.
+    source_operations: ["all 14 operations"]
+adjacent_surfaces:
+  insights_api:
+    source: https://dev.tapcart.com/reference/insights-api
+    rule: >-
+      "Validation, authentication, or usage based errors typically return a 4xx
+      http status code. Internal errors typically return a 5xx status code.
+      Usage based errors and internal errors may be retryable." No error codes
+      or error body shape are published.
+  webhook_consumer_contract:
+    source: https://dev.tapcart.com/reference/insights-stream-setup-guide
+    note: >-
+      The status codes Tapcart expects a merchant's webhook receiver to return
+      (200/400/401/403/422/429/500-511) are catalogued in
+      asyncapi/tapcart-webhooks.yml. They describe the consumer's obligations,
+      not Tapcart's API errors.
+gaps:
+  - No RFC 9457 application/problem+json; no error type URIs.
+  - No error codes — errors are distinguishable only by HTTP status and prose.
+  - No error response declares a content type or schema.
+  - No 429 / rate-limit error is documented on any Tapcart API surface.
+  - No published error reference page in the docs.

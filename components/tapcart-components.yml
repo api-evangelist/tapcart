@@ -1,0 +1,88 @@
+generated: '2026-08-05'
+method: searched
+source:
+  - https://dev.tapcart.com/docs/components
+  - https://dev.tapcart.com/docs/blocks
+  - https://dev.tapcart.com/docs/layouts
+description: >-
+  Tapcart's embeddable UI layer is App Studio: a React-based component model
+  that runs inside the native mobile app, not in a browser. This is distinct
+  from the server-side libraries in packages/tapcart-packages.yml. Three units
+  compose the surface — Blocks (a merchant-authored UI unit placed on a screen),
+  Components (reusable React chunks shared across blocks), and Layouts (the
+  arrangement of blocks on a screen, including tabbed layouts). A separate
+  WebBridge/embed family lets a web page rendered inside the app talk to the
+  native host.
+docs:
+  - https://dev.tapcart.com/docs/blocks
+  - https://dev.tapcart.com/docs/components
+  - https://dev.tapcart.com/docs/layouts
+  - https://dev.tapcart.com/docs/manifest-options-for-custom-blocks
+  - https://dev.tapcart.com/docs/dependencies
+requires_plan: Tapcart Enterprise (custom blocks and the CLI)
+libraries:
+  - {name: "@tapcart/app-studio-sdk", purpose: "Tapcart WebBridge React SDK — the App Studio client SDK. Catalogued in packages/."}
+  - {name: "@tapcart/app-studio-runtime", purpose: "Shared block runtime — renderer, hooks, and host contract."}
+  - {name: "@tapcart/app-studio-components", purpose: "Access to global App Studio components across environments."}
+  - {name: "@tapcart/mobile-components", purpose: "Tapcart's own mobile UI component library, importable from blocks; the CLI wires editor IntelliSense for it."}
+  - {name: "@tapcart/webbridge-react", purpose: "React bindings for the WebBridge — web content embedded in the native app."}
+  - {name: tapcart-embed, purpose: "Tapcart Web Plugins — self-contained web apps embedded into a Tapcart app."}
+families:
+  blocks:
+    description: >-
+      A custom block is a merchant-authored UI unit placed on an app screen.
+      Scaffolded with `tapcart block create`, developed with hot reload via
+      `tapcart dev`, pushed as a draft and promoted with --live.
+    file_structure:
+      - {file: code.jsx, description: The block's React source.}
+      - {file: config.json, description: "Block metadata. Supported fields: label, tags, dependencies."}
+      - {file: manifest.json, description: "Configuration schema that populates the App Studio right rail, so merchants can customize appearance without code."}
+      - {file: manifestConfig.json, description: Overrides to the manifest defaults.}
+    local_data: "One project-root mockData.json overrides cart, customer, product, collection and other app data for local preview."
+  components:
+    description: >-
+      Reusable React chunks shared across blocks, living in the project's
+      components/ directory. Command structure mirrors blocks (substitute
+      `component` for `block`). Requires @tapcart/tapcart-cli ^0.1.10 or later.
+    file_structure:
+      - {file: code.jsx, description: The component's React source.}
+      - {file: config.json, description: "Component metadata: label, tags, dependencies."}
+      - {file: manifest.json, description: Configuration schema surfaced in App Studio.}
+      - {file: manifestConfig.json, description: Overrides to the manifest defaults.}
+    versioning: "Pull a specific version with --version N; push stores a new version, --live promotes it."
+  layouts:
+    description: >-
+      The arrangement of blocks on a screen. Layouts live locally under
+      .tapcart/layouts and support tabbed variants; blocks can be added,
+      removed, reordered, and given manifestConfig overrides per placement.
+    docs: https://dev.tapcart.com/docs/layouts
+  webbridge_and_embeds:
+    description: >-
+      The earlier generation of embeddable surface — web pages rendered inside
+      the Tapcart app that synchronize state with the native host. Superseded
+      for new development by App Studio blocks, but still published on npm.
+    packages: ["@tapcart/webbridge-react", tapcart-embed, tapcart-codeblocks-sdk]
+runtime_api:
+  description: >-
+    Blocks and components consume a documented client-side runtime rather than
+    calling the REST API directly — hooks such as useVariables() and
+    useCollection(), variable namespaces (Cart, Customer, Orders, Storage,
+    Session, Device, Loyalty), and an action surface.
+  actions:
+    navigation: [screen/open, go/back, go/home, go/top]
+    cart: [cart/add, cart/remove, cart/clear, cart/line/update, cart/updateNotes, cart/updateAttributes, cart/discount/add, cart/discount/remove, cart/checkout]
+    customer: [customer/auth, customer/logout, customer/refresh]
+    storage: [storage/add, storage/update, storage/remove]
+    device: [trigger/haptic, trigger/alert, trigger/gallery, switch/app, switch/market]
+    loyalty: [loyalty/customer, loyalty/tiers, loyalty/history, loyalty/rewards, loyalty/redeem/reward, loyalty/record/activity]
+    analytics: [Track]
+  variables: [Customer, Cart, Orders, Storage, Session, Device, Loyalty]
+  note: >-
+    The Cart variable follows the Shopify Storefront API structure. Full
+    reference at https://dev.tapcart.com/docs/methods-and-access.
+dependencies:
+  model: "ESM modules resolved through esm.sh, declared per app in tapcart.config.json and synced to the remote app config."
+  docs: https://dev.tapcart.com/docs/dependencies
+templates:
+  repository: https://github.com/tapcartinc/custom-block-templates
+  description: Custom Block templates published by Tapcart.
