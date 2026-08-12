@@ -28,41 +28,13 @@ tags:
 - Webhooks
 - Developer Tools
 apis:
-- aid: tapcart:app-studio-development-api
-  name: Tapcart App Studio Development API
-  description: 'The Tapcart Development API — the REST surface behind App Studio and
-    the Tapcart CLI. Creates and updates App Studio Components and Block Templates,
-    reads and promotes their versions, manages an app''s ESM dependency list, and
-    retrieves layouts for an app. Bearer (JWT) authenticated; read vs write auth is
-    called out per operation.'
-  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
-  baseURL: https://api.tapcart.com
-  tags:
-  - App Studio
-  - Components
-  - Block Templates
-  - Layouts
-  - Dependencies
-  properties:
-  - type: OpenAPI
-    url: openapi/tapcart-client-api-openapi-original.json
-  - type: Overlay
-    url: overlays/tapcart-client-api-overlay.yaml
-  - type: Documentation
-    url: https://dev.tapcart.com/reference/api-setup-and-auth
-  - type: APIReference
-    url: https://dev.tapcart.com/reference
-  - type: DataModel
-    url: data-model/tapcart-data-model.yml
-  - type: ErrorCatalog
-    url: errors/tapcart-problem-types.yml
 - aid: tapcart:insights-metrics-api
   name: Tapcart Insights Metrics API
-  description: 'The Insights (Insights Pro) Metrics API returns aggregated analytics
-    for a Tapcart app from a single POST endpoint whose response shape varies by the
-    requested metricType — push explorer, sessions, revenue, and other app
-    performance metrics — over a date range with configurable timezone and
-    granularity. Authenticated with a static api-key header plus an app-id header.'
+  description: >-
+    The Insights (Insights Pro) Metrics API returns aggregated analytics for a Tapcart app from a single
+    POST endpoint whose response shape varies by the requested metricType — push explorer, sessions, revenue,
+    and other app performance metrics — over a date range with configurable timezone and granularity.
+    Authenticated with a static api-key header plus an app-id header.
   humanURL: https://dev.tapcart.com/reference/insights-api
   baseURL: https://api.tapcart.com/insights-pro/v2
   tags:
@@ -75,12 +47,11 @@ apis:
     url: https://dev.tapcart.com/reference/insights-api
 - aid: tapcart:clickstream-webhook
   name: Tapcart Clickstream Webhook
-  description: 'Tapcart''s clickstream webhook delivers realtime shopper behavioral
-    events from the mobile app to an HTTPS endpoint the merchant configures in the
-    Tapcart dashboard. Fifteen event types are eligible for delivery, from
-    applicationInstalled and pageView through cartAdd, checkoutCreated and
-    purchaseCompleted, each carrying a shared device/session properties envelope and
-    deduplication identifiers.'
+  description: >-
+    Tapcart's clickstream webhook delivers realtime shopper behavioral events from the mobile app to an
+    HTTPS endpoint the merchant configures in the Tapcart dashboard. Fifteen event types are eligible
+    for delivery, from applicationInstalled and pageView through cartAdd, checkoutCreated and purchaseCompleted,
+    each carrying a shared device/session properties envelope and deduplication identifiers.
   humanURL: https://dev.tapcart.com/reference/clickstream
   baseURL: https://dev.tapcart.com/reference/clickstream
   tags:
@@ -93,12 +64,110 @@ apis:
     url: asyncapi/tapcart-webhooks.yml
   - type: Documentation
     url: https://dev.tapcart.com/reference/clickstream
+- aid: tapcart:tapcart-development-api-block-templates-api
+  name: Tapcart Development API - Block Templates API
+  description: >-
+    The Development API - Block Templates API from Tapcart — 4 operation(s) for development api - block
+    templates.
+  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
+  baseURL: https://api.tapcart.com
+  tags:
+  - Development API - Block Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/tapcart-development-api-block-templates-api-openapi.yml
+  - type: Documentation
+    url: https://dev.tapcart.com/reference/api-setup-and-auth
+  - type: APIReference
+    url: https://dev.tapcart.com/reference
+  - type: DataModel
+    url: data-model/tapcart-data-model.yml
+  - type: ErrorCatalog
+    url: errors/tapcart-problem-types.yml
+- aid: tapcart:tapcart-development-api-blocks-api
+  name: Tapcart Development API - Blocks API
+  description: >-
+    The Development API - Blocks API from Tapcart — 1 operation(s) for development api - blocks.
+  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
+  baseURL: https://api.tapcart.com
+  tags:
+  - Development API - Blocks
+  properties:
+  - type: OpenAPI
+    url: openapi/tapcart-development-api-blocks-api-openapi.yml
+  - type: Documentation
+    url: https://dev.tapcart.com/reference/api-setup-and-auth
+  - type: APIReference
+    url: https://dev.tapcart.com/reference
+  - type: DataModel
+    url: data-model/tapcart-data-model.yml
+  - type: ErrorCatalog
+    url: errors/tapcart-problem-types.yml
+- aid: tapcart:tapcart-development-api-components-api
+  name: Tapcart Development API - Components API
+  description: >-
+    The Development API - Components API from Tapcart — 5 operation(s) for development api - components.
+  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
+  baseURL: https://api.tapcart.com
+  tags:
+  - Development API - Components
+  properties:
+  - type: OpenAPI
+    url: openapi/tapcart-development-api-components-api-openapi.yml
+  - type: Documentation
+    url: https://dev.tapcart.com/reference/api-setup-and-auth
+  - type: APIReference
+    url: https://dev.tapcart.com/reference
+  - type: DataModel
+    url: data-model/tapcart-data-model.yml
+  - type: ErrorCatalog
+    url: errors/tapcart-problem-types.yml
+- aid: tapcart:tapcart-development-api-dependencies-api
+  name: Tapcart Development API - Dependencies API
+  description: >-
+    The Development API - Dependencies API from Tapcart — 1 operation(s) for development api - dependencies.
+  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
+  baseURL: https://api.tapcart.com
+  tags:
+  - Development API - Dependencies
+  properties:
+  - type: OpenAPI
+    url: openapi/tapcart-development-api-dependencies-api-openapi.yml
+  - type: Documentation
+    url: https://dev.tapcart.com/reference/api-setup-and-auth
+  - type: APIReference
+    url: https://dev.tapcart.com/reference
+  - type: DataModel
+    url: data-model/tapcart-data-model.yml
+  - type: ErrorCatalog
+    url: errors/tapcart-problem-types.yml
+- aid: tapcart:tapcart-development-api-layouts-api
+  name: Tapcart Development API - Layouts API
+  description: >-
+    The Development API - Layouts API from Tapcart — 1 operation(s) for development api - layouts.
+  humanURL: https://dev.tapcart.com/reference/api-setup-and-auth
+  baseURL: https://api.tapcart.com
+  tags:
+  - Development API - Layouts
+  properties:
+  - type: OpenAPI
+    url: openapi/tapcart-development-api-layouts-api-openapi.yml
+  - type: Documentation
+    url: https://dev.tapcart.com/reference/api-setup-and-auth
+  - type: APIReference
+    url: https://dev.tapcart.com/reference
+  - type: DataModel
+    url: data-model/tapcart-data-model.yml
+  - type: ErrorCatalog
+    url: errors/tapcart-problem-types.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/tapcart-client-api-overlay.yaml
 - type: Website
   url: https://www.tapcart.com/
 - type: DeveloperPortal
