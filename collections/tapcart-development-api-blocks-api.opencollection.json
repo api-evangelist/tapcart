@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapcart @tapcart/app-pages Development API - Blocks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Development API - Blocks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/blocks",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the app"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

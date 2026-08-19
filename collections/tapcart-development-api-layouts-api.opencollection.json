@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapcart @tapcart/app-pages Development API - Layouts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Development API - Layouts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve layouts for a specific app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/layouts",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the app"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "The type of the layout"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of layouts to return"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "The sort order of the layouts"
+              },
+              {
+                "name": "readonly",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include readonly layouts"
+              }
+            ]
+          },
+          "docs": "Returns a list of layouts for the specified appId. Requires read auth."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

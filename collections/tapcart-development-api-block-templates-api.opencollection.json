@@ -1,0 +1,122 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapcart @tapcart/app-pages Development API - Block Templates API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Development API - Block Templates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a BlockTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapcart.com/client/blockTemplates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new BlockTemplate. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Update a BlockTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapcart.com/client/blockTemplates/:blockTemplateId",
+            "params": [
+              {
+                "name": "blockTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the block template to change to be updated"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing block template if `forceUpdate` is true. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Update the versionIndex of an existing BlockTemplate.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapcart.com/client/:appId/blockTemplates/:blockTemplateId/versions",
+            "params": [
+              {
+                "name": "blockTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the BlockTemplate to update."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The label of the BlockTemplate to update."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the `versionIndex` of a specified BlockTemplate by blockTemplateId."
+        },
+        {
+          "info": {
+            "name": "Retrieve a BlockTemplate by blockTemplateId.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/blockTemplates/:blockTemplateId",
+            "params": [
+              {
+                "name": "blockTemplateId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the BlockTemplate to retrieve."
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the app."
+              },
+              {
+                "name": "versionIndex",
+                "value": "",
+                "type": "query",
+                "description": "The version index to retrieve. If not provided, the current versionIndex is used."
+              }
+            ]
+          },
+          "docs": "Retrieves a BlockTemplate along with the specified version based on `versionIndex`. Requires read auth"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

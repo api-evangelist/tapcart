@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "c3309860-8f55-49ec-acf4-75b2662b8a25",
+      "name": "Development API - Blocks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4a640743-7f83-4a93-bc10-5a439cd9fcab",
+          "name": "Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth.",
+          "request": {
+            "name": "Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth.",
+            "description": {},
+            "url": {
+              "path": [
+                "client",
+                ":appId",
+                "blocks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) The ID of the app"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4237a26-1481-4552-9c5b-cf365826d231",
+              "name": "Merchant-owned custom block template response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"reactBlockTemplates\": [\n    {\n      \"owner\": {\n        \"type\": \"string\",\n        \"id\": \"string\"\n      },\n      \"label\": \"string\",\n      \"code\": \"string\",\n      \"transpiledCode\": \"string\",\n      \"versions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updateDescription\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ]\n    },\n    {\n      \"owner\": {\n        \"type\": \"string\",\n        \"id\": \"string\"\n      },\n      \"label\": \"string\",\n      \"code\": \"string\",\n      \"transpiledCode\": \"string\",\n      \"versions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"updateDescription\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aba23d30-a5fb-4e85-afe7-6b33aa8f4016",
+              "name": "App not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65b56a00-de94-4c0d-8b6b-cedd8afd15e5",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "blocks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tapcart.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "048923fd-fc80-4fb5-95d6-e6d750da80ce",
+    "name": "Tapcart @tapcart/app-pages Development API - Blocks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "@tapcart/app-pages within the microservice systems",
+      "type": "text/plain"
+    }
+  }
+}

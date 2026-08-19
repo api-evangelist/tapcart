@@ -1,0 +1,313 @@
+{
+  "item": [
+    {
+      "id": "4f9e0038-bc7c-4959-af47-97fac1c4a722",
+      "name": "Development API - Layouts",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01270fe6-13f8-43db-aa09-b0659ca3921a",
+          "name": "Retrieve layouts for a specific app",
+          "request": {
+            "name": "Retrieve layouts for a specific app",
+            "description": {
+              "content": "Returns a list of layouts for the specified appId. Requires read auth.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "client",
+                ":appId",
+                "layouts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "The type of the layout"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<integer>",
+                  "description": "The number of layouts to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "The sort order of the layouts"
+                },
+                {
+                  "disabled": false,
+                  "key": "readonly",
+                  "value": "<boolean>",
+                  "description": "Whether to include readonly layouts"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "appId",
+                  "description": "(Required) The ID of the app"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa38abae-8f6a-44fd-9a89-b629fc564550",
+              "name": "A list of layouts",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "layouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readonly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"_id\": \"string\",\n    \"appId\": \"string\",\n    \"label\": \"string\",\n    \"type\": \"string\",\n    \"blocks\": [\n      {\n        \"_id\": \"string\",\n        \"appId\": \"string\",\n        \"label\": \"string\",\n        \"code\": \"string\",\n        \"manifestOptionsList\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          }\n        ],\n        \"manifestConfig\": {},\n        \"readOnly\": true,\n        \"blockTemplateId\": \"string\",\n        \"useBlockTemplate\": true,\n        \"createdAt\": \"2009-04-21T12:39:12.718Z\",\n        \"updatedAt\": \"1953-11-09T22:53:06.081Z\"\n      },\n      {\n        \"_id\": \"string\",\n        \"appId\": \"string\",\n        \"label\": \"string\",\n        \"code\": \"string\",\n        \"manifestOptionsList\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          }\n        ],\n        \"manifestConfig\": {},\n        \"readOnly\": true,\n        \"blockTemplateId\": \"string\",\n        \"useBlockTemplate\": true,\n        \"createdAt\": \"2003-07-05T05:31:34.766Z\",\n        \"updatedAt\": \"1993-11-30T02:56:29.950Z\"\n      }\n    ],\n    \"readOnly\": true,\n    \"layoutTemplateId\": \"string\",\n    \"useLayoutTemplate\": true,\n    \"createdAt\": \"1991-04-19T02:57:06.921Z\",\n    \"updatedAt\": \"1950-09-03T09:51:47.829Z\"\n  },\n  {\n    \"_id\": \"string\",\n    \"appId\": \"string\",\n    \"label\": \"string\",\n    \"type\": \"string\",\n    \"blocks\": [\n      {\n        \"_id\": \"string\",\n        \"appId\": \"string\",\n        \"label\": \"string\",\n        \"code\": \"string\",\n        \"manifestOptionsList\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          }\n        ],\n        \"manifestConfig\": {},\n        \"readOnly\": true,\n        \"blockTemplateId\": \"string\",\n        \"useBlockTemplate\": true,\n        \"createdAt\": \"2008-01-14T05:33:40.053Z\",\n        \"updatedAt\": \"2021-02-23T18:31:52.351Z\"\n      },\n      {\n        \"_id\": \"string\",\n        \"appId\": \"string\",\n        \"label\": \"string\",\n        \"code\": \"string\",\n        \"manifestOptionsList\": [\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          },\n          {\n            \"id\": \"string\",\n            \"label\": \"string\",\n            \"type\": \"string\",\n            \"defaultValue\": {}\n          }\n        ],\n        \"manifestConfig\": {},\n        \"readOnly\": false,\n        \"blockTemplateId\": \"string\",\n        \"useBlockTemplate\": true,\n        \"createdAt\": \"1959-02-27T00:42:43.652Z\",\n        \"updatedAt\": \"1998-10-11T08:19:54.718Z\"\n      }\n    ],\n    \"readOnly\": true,\n    \"layoutTemplateId\": \"string\",\n    \"useLayoutTemplate\": false,\n    \"createdAt\": \"1981-02-17T10:04:50.731Z\",\n    \"updatedAt\": \"1950-11-23T06:48:01.328Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c50cc21c-f725-4e0e-b3fc-a5d47251394b",
+              "name": "Layouts not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "layouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readonly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ae0fd40a-c7c3-4758-bc7f-7379cf208251",
+              "name": "Server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client",
+                    ":appId",
+                    "layouts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "readonly",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "appId",
+                      "description": "(Required) The ID of the app"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.tapcart.com/",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5696b917-3a4b-4f7c-ae12-7191fa8b706d",
+    "name": "Tapcart @tapcart/app-pages Development API - Layouts API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "@tapcart/app-pages within the microservice systems",
+      "type": "text/plain"
+    }
+  }
+}

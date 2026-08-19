@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapcart @tapcart/app-pages Development API - Dependencies API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Development API - Dependencies",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get dependencies for a specific app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/dependencies",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the app."
+              }
+            ]
+          },
+          "docs": "Retrieves the dependencies of an app identified by the appId."
+        },
+        {
+          "info": {
+            "name": "Update dependencies for a specific app.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapcart.com/client/:appId/dependencies",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the app."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the dependencies of an app identified by the appId. Requires write auth"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

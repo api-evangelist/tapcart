@@ -2,108 +2,197 @@ generated: '2026-08-05'
 method: searched
 status: published
 source: https://dev.tapcart.com/docs/mcp
-description: >-
-  Tapcart publishes a first-party MCP server, shipped inside the Tapcart CLI
-  npm package rather than as a hosted remote endpoint. It exposes the CLI's
-  capability surface — project setup, blocks, components, layouts,
-  dependencies, auth, logs, lint and docs search — to MCP-compatible clients
-  such as Cursor and Windsurf, over a local stdio process. Tool names and
-  descriptions below are transcribed verbatim from the provider's published
-  tool tables at dev.tapcart.com/docs/mcp; input schemas were NOT introspected
-  because the server is stdio-only (no reachable HTTP endpoint to POST
-  tools/list against) and requires authenticated local credentials in
-  ~/.tapcart/auth.json. The provider ships its own runtime discovery tool,
-  `tapcart_mcp_capabilities`, which returns the always-current tool list with
-  input schemas.
+description: Tapcart publishes a first-party MCP server, shipped inside the Tapcart CLI npm package rather
+  than as a hosted remote endpoint. It exposes the CLI's capability surface — project setup, blocks, components,
+  layouts, dependencies, auth, logs, lint and docs search — to MCP-compatible clients such as Cursor and
+  Windsurf, over a local stdio process. Tool names and descriptions below are transcribed verbatim from
+  the provider's published tool tables at dev.tapcart.com/docs/mcp; input schemas were NOT introspected
+  because the server is stdio-only (no reachable HTTP endpoint to POST tools/list against) and requires
+  authenticated local credentials in ~/.tapcart/auth.json. The provider ships its own runtime discovery
+  tool, `tapcart_mcp_capabilities`, which returns the always-current tool list with input schemas.
 server:
   name: tapcart-cli
   transport: stdio
   command: npx
-  args: ["-y", "@tapcart/tapcart-cli@latest", "mcp"]
-  package: "@tapcart/tapcart-cli"
+  args:
+  - -y
+  - '@tapcart/tapcart-cli@latest'
+  - mcp
+  package: '@tapcart/tapcart-cli'
   env:
     TAPCART_ENV: production
     TAPCART_LOG_LEVEL: ERROR
-  clients_documented: [Windsurf, Cursor]
+  clients_documented:
+  - Windsurf
+  - Cursor
   config_paths:
     windsurf: $HOME/.codeium/windsurf/mcp_config.json
     cursor: $HOME/.cursor/mcp.json
   prerequisites:
-    - Node.js >= 20
-    - An MCP-compatible client
-    - "A Tapcart project on disk with tapcart.config.json and an appId (or scaffold one with tapcart_project_create)"
+  - Node.js >= 20
+  - An MCP-compatible client
+  - A Tapcart project on disk with tapcart.config.json and an appId (or scaffold one with tapcart_project_create)
   requires_plan: Tapcart Enterprise (custom blocks / CLI access)
 authentication:
   model: local Auth0 browser login, credentials written to ~/.tapcart/auth.json
-  tools: [tapcart_auth_status, tapcart_auth_login_instructions, tapcart_auth_logout]
+  tools:
+  - tapcart_auth_status
+  - tapcart_auth_login_instructions
+  - tapcart_auth_logout
 safety:
-  mode_gating: >-
-    Remote-write tools are mode-gated. With `mode` omitted the tool behaves as
-    "plan" and performs no remote write; "mode": "apply" is required to
-    actually write. This is a provider-implemented human-in-the-loop control on
-    the destructive half of the tool surface.
+  mode_gating: 'Remote-write tools are mode-gated. With `mode` omitted the tool behaves as "plan" and
+    performs no remote write; "mode": "apply" is required to actually write. This is a provider-implemented
+    human-in-the-loop control on the destructive half of the tool surface.'
   mode_gated_tools:
-    - tapcart_blocks_push
-    - tapcart_block_versions_set
-    - tapcart_components_push
-    - tapcart_component_versions_set
-    - tapcart_dependencies_pushRemote
-    - tapcart_lint
+  - tapcart_blocks_push
+  - tapcart_block_versions_set
+  - tapcart_components_push
+  - tapcart_component_versions_set
+  - tapcart_dependencies_pushRemote
+  - tapcart_lint
   redaction: tapcart_log_show redacts common secret patterns.
-  long_running: >-
-    tapcart_dev_instructions returns the command to start the hot-reload dev
-    server rather than starting a background process — the MCP server never
-    keeps a dev server alive.
+  long_running: tapcart_dev_instructions returns the command to start the hot-reload dev server rather
+    than starting a background process — the MCP server never keeps a dev server alive.
 tools:
-  - {name: tapcart_project_info, category: project, description: Return resolved project configuration and environment info for a project path.}
-  - {name: tapcart_project_create, category: project, description: "Scaffold a new Tapcart custom-blocks project (config, package.json, blocks/components dirs, root mockData.json, editor IntelliSense). Requires appId and folderPath."}
-  - {name: tapcart_types_sync, category: project, description: "Write/refresh .tapcart/types/ + jsconfig.json for editor IntelliSense."}
-  - {name: tapcart_auth_status, category: auth, description: Return local Auth0 credential status from ~/.tapcart/auth.json.}
-  - {name: tapcart_auth_login_instructions, category: auth, description: Return the command to run to log in via browser.}
-  - {name: tapcart_auth_logout, category: auth, description: Clear local credentials.}
-  - {name: tapcart_dev_instructions, category: project, description: "Return the terminal command to start the local hot-reload dev server (devMode block|component|layout, plus target/port/verbose). Does not start the server itself."}
-  - {name: tapcart_blocks_createLocal, category: blocks, description: Scaffold a new block folder locally.}
-  - {name: tapcart_blocks_listRemote, category: blocks, description: "List remote blocks for the configured appId (summary by default; includeCode for full payloads)."}
-  - {name: tapcart_blocks_pull, category: blocks, description: "Pull one/all remote blocks into ./blocks (optionally a specific version for a single block)."}
-  - {name: tapcart_blocks_push, category: blocks, description: Build and push local blocks to the dashboard. Mode-gated.}
-  - {name: tapcart_block_versions_list, category: blocks, description: List all versions of a block and flag which is local vs. live.}
-  - {name: tapcart_block_versions_set, category: blocks, description: Set the active (live) version of a block. Mode-gated.}
-  - {name: tapcart_components_createLocal, category: components, description: Scaffold a new component folder locally.}
-  - {name: tapcart_components_listRemote, category: components, description: List remote components for the configured appId.}
-  - {name: tapcart_components_pull, category: components, description: "Pull one/all remote components into ./components (optionally a specific version for a single component)."}
-  - {name: tapcart_components_push, category: components, description: Build and push local components to the dashboard. Mode-gated.}
-  - {name: tapcart_component_versions_list, category: components, description: List all versions of a component and flag which is local vs. live.}
-  - {name: tapcart_component_versions_set, category: components, description: Set the active (live) version of a component. Mode-gated.}
-  - {name: tapcart_layout_new, category: layouts, description: "Create a new local layout (tabbed for a tabbed layout)."}
-  - {name: tapcart_layout_add, category: layouts, description: Add a local block/component to a layout by folder name. Auto-resolves the layout if omitted and only one exists.}
-  - {name: tapcart_layout_remove, category: layouts, description: Remove a block from a layout by index or `as` handle.}
-  - {name: tapcart_layout_reorder, category: layouts, description: Move a block from one index (from) to another (to) within a layout.}
-  - {name: tapcart_layout_set, category: layouts, description: "Set manifestConfig values on a block within a layout (kv key=value pairs)."}
-  - {name: tapcart_layout_tab_add, category: layouts, description: Add a tab to a tabbed layout.}
-  - {name: tapcart_layout_tab_remove, category: layouts, description: Remove a tab from a tabbed layout.}
-  - {name: tapcart_layout_tab_rename, category: layouts, description: Rename a tab on a tabbed layout.}
-  - {name: tapcart_layout_list, category: layouts, description: List local layouts (read-only).}
-  - {name: tapcart_layout_show, category: layouts, description: Print a local layout file (read-only).}
-  - {name: tapcart_layout_validate, category: layouts, description: Validate one or all local layouts against the schema and available local block folders (read-only).}
-  - {name: tapcart_dependencies_listLocal, category: dependencies, description: List dependencies configured in tapcart.config.json.}
-  - {name: tapcart_dependencies_addLocal, category: dependencies, description: "Add a dependency locally (validates against esm.sh unless validate:false; force:true to overwrite a conflicting version)."}
-  - {name: tapcart_dependencies_removeLocal, category: dependencies, description: Remove a dependency locally.}
-  - {name: tapcart_dependencies_pullRemote, category: dependencies, description: Pull remote dependencies into tapcart.config.json.}
-  - {name: tapcart_dependencies_pushRemote, category: dependencies, description: Push the local dependency list to the remote app config. Mode-gated.}
-  - {name: tapcart_lint, category: quality, description: "Run ESLint on local blocks/components. Filesystem writes from fix:true only occur when mode:apply."}
-  - {name: tapcart_log_show, category: quality, description: "Show recent lines from ~/.tapcart/cli.log (read-only; common secret patterns are redacted)."}
-  - {name: tapcart_docs_search, category: docs, description: Search Tapcart developer docs for conceptual/how-to questions.}
-  - {name: tapcart_mcp_capabilities, category: docs, description: Return a structured overview of every registered tool, including which are mode-gated.}
+- name: tapcart_project_info
+  category: project
+  description: Return resolved project configuration and environment info for a project path.
+- name: tapcart_project_create
+  category: project
+  description: Scaffold a new Tapcart custom-blocks project (config, package.json, blocks/components dirs,
+    root mockData.json, editor IntelliSense). Requires appId and folderPath.
+- name: tapcart_types_sync
+  category: project
+  description: Write/refresh .tapcart/types/ + jsconfig.json for editor IntelliSense.
+- name: tapcart_auth_status
+  category: auth
+  description: Return local Auth0 credential status from ~/.tapcart/auth.json.
+- name: tapcart_auth_login_instructions
+  category: auth
+  description: Return the command to run to log in via browser.
+- name: tapcart_auth_logout
+  category: auth
+  description: Clear local credentials.
+- name: tapcart_dev_instructions
+  category: project
+  description: Return the terminal command to start the local hot-reload dev server (devMode block|component|layout,
+    plus target/port/verbose). Does not start the server itself.
+- name: tapcart_blocks_createLocal
+  category: blocks
+  description: Scaffold a new block folder locally.
+- name: tapcart_blocks_listRemote
+  category: blocks
+  description: List remote blocks for the configured appId (summary by default; includeCode for full payloads).
+- name: tapcart_blocks_pull
+  category: blocks
+  description: Pull one/all remote blocks into ./blocks (optionally a specific version for a single block).
+- name: tapcart_blocks_push
+  category: blocks
+  description: Build and push local blocks to the dashboard. Mode-gated.
+- name: tapcart_block_versions_list
+  category: blocks
+  description: List all versions of a block and flag which is local vs. live.
+- name: tapcart_block_versions_set
+  category: blocks
+  description: Set the active (live) version of a block. Mode-gated.
+- name: tapcart_components_createLocal
+  category: components
+  description: Scaffold a new component folder locally.
+- name: tapcart_components_listRemote
+  category: components
+  description: List remote components for the configured appId.
+- name: tapcart_components_pull
+  category: components
+  description: Pull one/all remote components into ./components (optionally a specific version for a single
+    component).
+- name: tapcart_components_push
+  category: components
+  description: Build and push local components to the dashboard. Mode-gated.
+- name: tapcart_component_versions_list
+  category: components
+  description: List all versions of a component and flag which is local vs. live.
+- name: tapcart_component_versions_set
+  category: components
+  description: Set the active (live) version of a component. Mode-gated.
+- name: tapcart_layout_new
+  category: layouts
+  description: Create a new local layout (tabbed for a tabbed layout).
+- name: tapcart_layout_add
+  category: layouts
+  description: Add a local block/component to a layout by folder name. Auto-resolves the layout if omitted
+    and only one exists.
+- name: tapcart_layout_remove
+  category: layouts
+  description: Remove a block from a layout by index or `as` handle.
+- name: tapcart_layout_reorder
+  category: layouts
+  description: Move a block from one index (from) to another (to) within a layout.
+- name: tapcart_layout_set
+  category: layouts
+  description: Set manifestConfig values on a block within a layout (kv key=value pairs).
+- name: tapcart_layout_tab_add
+  category: layouts
+  description: Add a tab to a tabbed layout.
+- name: tapcart_layout_tab_remove
+  category: layouts
+  description: Remove a tab from a tabbed layout.
+- name: tapcart_layout_tab_rename
+  category: layouts
+  description: Rename a tab on a tabbed layout.
+- name: tapcart_layout_list
+  category: layouts
+  description: List local layouts (read-only).
+- name: tapcart_layout_show
+  category: layouts
+  description: Print a local layout file (read-only).
+- name: tapcart_layout_validate
+  category: layouts
+  description: Validate one or all local layouts against the schema and available local block folders
+    (read-only).
+- name: tapcart_dependencies_listLocal
+  category: dependencies
+  description: List dependencies configured in tapcart.config.json.
+- name: tapcart_dependencies_addLocal
+  category: dependencies
+  description: Add a dependency locally (validates against esm.sh unless validate:false; force:true to
+    overwrite a conflicting version).
+- name: tapcart_dependencies_removeLocal
+  category: dependencies
+  description: Remove a dependency locally.
+- name: tapcart_dependencies_pullRemote
+  category: dependencies
+  description: Pull remote dependencies into tapcart.config.json.
+- name: tapcart_dependencies_pushRemote
+  category: dependencies
+  description: Push the local dependency list to the remote app config. Mode-gated.
+- name: tapcart_lint
+  category: quality
+  description: Run ESLint on local blocks/components. Filesystem writes from fix:true only occur when
+    mode:apply.
+- name: tapcart_log_show
+  category: quality
+  description: Show recent lines from ~/.tapcart/cli.log (read-only; common secret patterns are redacted).
+- name: tapcart_docs_search
+  category: docs
+  description: Search Tapcart developer docs for conceptual/how-to questions.
+- name: tapcart_mcp_capabilities
+  category: docs
+  description: Return a structured overview of every registered tool
+  including which are mode-gated.: null
 coverage:
   tools_published: 39
   input_schemas_captured: false
-  input_schema_note: >-
-    Live tools/list introspection is not possible over the network: the server
-    is a local stdio process. Names and descriptions are verbatim from the
-    docs; run tapcart_mcp_capabilities against an installed CLI for the
-    authoritative input schemas.
+  input_schema_note: 'Live tools/list introspection is not possible over the network: the server is a
+    local stdio process. Names and descriptions are verbatim from the docs; run tapcart_mcp_capabilities
+    against an installed CLI for the authoritative input schemas.'
 x-evidence:
   fetched: '2026-08-05'
   url: https://dev.tapcart.com/docs/mcp
   http_status: 200
   doc_updated_at: '2026-07-10T17:01:48.000Z'
+deployment:
+  mode: local-stdio
+  verified: searched
+  tools: 39
+  checked: '2026-08-12'
+  source: catalog MCP census

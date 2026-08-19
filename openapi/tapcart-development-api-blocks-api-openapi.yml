@@ -1,0 +1,83 @@
+openapi: 3.2.0
+info:
+  title: Tapcart @tapcart/app-pages Development API - Blocks API
+  description: '@tapcart/app-pages within the microservice systems'
+  version: 1.0.0
+servers:
+- url: https://api.tapcart.com/
+security:
+- bearerAuth: []
+tags:
+- name: Development API - Blocks
+paths:
+  /client/{appId}/blocks:
+    get:
+      summary: Retrieve a list of all merchant-owned custom block templates based on app id. Requires read auth.
+      tags:
+      - Development API - Blocks
+      parameters:
+      - in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        description: The ID of the app
+      responses:
+        '200':
+          description: Merchant-owned custom block template response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reactBlockTemplates:
+                    type: array
+                    description: Block template properties
+                    items:
+                      type: object
+                      properties:
+                        owner:
+                          type: object
+                          description: Type of block template owner
+                          properties:
+                            type:
+                              type: string
+                              description: Either "tapcart" or "app" but will be "app" for templates in this response
+                            id:
+                              type: string
+                              description: App id of merchant owner
+                        label:
+                          type: string
+                          description: Custom block title
+                        code:
+                          type: string
+                          description: Base64 string of code to be rendered in code editor
+                        transpiledCode:
+                          type: string
+                          description: Base64 string of transpiled code
+                        manifestOptionsList:
+                          type: array
+                          description: An empty array
+                          items:
+                            type: object
+                        versions:
+                          type: array
+                          description: Array of previously submitted block versions
+                          items:
+                            type: string
+                        updateDescription:
+                          type: string
+                        tags:
+                          type: array
+                          items:
+                            type: string
+        '404':
+          description: App not found
+        '500':
+          description: Server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

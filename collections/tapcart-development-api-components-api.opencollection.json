@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Tapcart @tapcart/app-pages Development API - Components API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Development API - Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an App Studio Component.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.tapcart.com/client/components",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new App Studio Component or updates an existing one if `forceUpdate` is true. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Update an App Studio Component.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapcart.com/client/components/:componentId",
+            "params": [
+              {
+                "name": "componentId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the App Studio Component to update"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing app studio component. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Get an App Studio Component by key.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/components/:componentKey",
+            "params": [
+              {
+                "name": "componentKey",
+                "value": "",
+                "type": "path",
+                "description": "Key of the App Studio Component to retrieve (ex. \"ProductCard\")"
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the app to retrieve component for."
+              }
+            ]
+          },
+          "docs": "Retrieves an App Studio Component by its key. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Get all App Studio Components for an app",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/components",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the app to retrieve App Studio Components for"
+              },
+              {
+                "name": "includeTapcartComponents",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include tapcart components as well"
+              }
+            ]
+          },
+          "docs": "Retrieves all App Studio Components for a specific app, as well as tapcart components, if specified. Requires write auth."
+        },
+        {
+          "info": {
+            "name": "Get versions of an App Studio Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.tapcart.com/client/:appId/components/:componentKey/versions",
+            "params": [
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the app to retrieve App Studio Components for"
+              },
+              {
+                "name": "componentKey",
+                "value": "",
+                "type": "path",
+                "description": "Key of the App Studio Component to retrieve versions for (ex. \"ProductCard\")"
+              },
+              {
+                "name": "owner",
+                "value": "",
+                "type": "query",
+                "description": "JSON string of the owner object to filter by"
+              }
+            ]
+          },
+          "docs": "Retrieves all versions of an App Studio Component by its key. Requires write auth"
+        },
+        {
+          "info": {
+            "name": "Update the version index of an App Studio Component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.tapcart.com/client/:appId/components/:componentKey/versions",
+            "params": [
+              {
+                "name": "componentKey",
+                "value": "",
+                "type": "path",
+                "description": "Key of the App Studio Component to update (ex. \"ProductCard\")"
+              },
+              {
+                "name": "appId",
+                "value": "",
+                "type": "path",
+                "description": "ID of the app to retrieve component for."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the active version of an App Studio Component by setting its version index. Requires write auth."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

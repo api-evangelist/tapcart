@@ -1,0 +1,231 @@
+openapi: 3.2.0
+info:
+  title: Tapcart @tapcart/app-pages Development API - Block Templates API
+  description: '@tapcart/app-pages within the microservice systems'
+  version: 1.0.0
+servers:
+- url: https://api.tapcart.com/
+security:
+- bearerAuth: []
+tags:
+- name: Development API - Block Templates
+paths:
+  /client/blockTemplates:
+    post:
+      summary: Create a BlockTemplate.
+      description: Creates a new BlockTemplate. Requires write auth.
+      tags:
+      - Development API - Block Templates
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                owner:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: Owner type (e.g. 'app').
+                    id:
+                      type: string
+                      description: Owner ID (required if owner type is 'app').
+                label:
+                  type: string
+                  description: The label of the BlockTemplate.
+                code:
+                  type: string
+                  description: The encoded source code for the BlockTemplate.
+                transpiledCode:
+                  type: string
+                  description: The encoded transpiled code for the BlockTemplate.
+                manifestOptionsList:
+                  type: array
+                  description: List of manifest options.
+                  items:
+                    type: object
+                updateDescription:
+                  type: string
+                  description: Description for the update.
+                tags:
+                  type: array
+                  description: Tags associated with the BlockTemplate.
+                  items:
+                    type: string
+                status:
+                  type: string
+                  description: Status of the BlockTemplate.
+                versionIndex:
+                  type: number
+                  description: The index of the version to set (only used if force updating).
+      responses:
+        '200':
+          description: BlockTemplate successfully created or updated.
+        '400':
+          description: Bad request, including invalid `versionIndex` or missing required fields.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: BlockTemplate not found when force updating.
+        '500':
+          description: Internal server error.
+  /client/blockTemplates/{blockTemplateId}:
+    put:
+      summary: Update a BlockTemplate.
+      description: Updates an existing block template if `forceUpdate` is true. Requires write auth.
+      tags:
+      - Development API - Block Templates
+      parameters:
+      - in: path
+        name: blockTemplateId
+        required: true
+        schema:
+          type: string
+        description: ID of the block template to change to be updated
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                owner:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: Owner type (e.g. 'app').
+                    id:
+                      type: string
+                      description: Owner ID (required if owner type is 'app').
+                label:
+                  type: string
+                  description: The label of the BlockTemplate.
+                code:
+                  type: string
+                  description: The encoded source code for the BlockTemplate.
+                transpiledCode:
+                  type: string
+                  description: The encoded transpiled code for the BlockTemplate.
+                manifestOptionsList:
+                  type: array
+                  description: List of manifest options.
+                  items:
+                    type: object
+                forceUpdate:
+                  type: boolean
+                  description: If true, forces an update on an existing BlockTemplate.
+                  default: false
+                updateDescription:
+                  type: string
+                  description: Description for the update.
+                tags:
+                  type: array
+                  description: Tags associated with the BlockTemplate.
+                  items:
+                    type: string
+                status:
+                  type: string
+                  description: Status of the BlockTemplate.
+                versionIndex:
+                  type: number
+                  description: The index of the version to set (only used if force updating).
+      responses:
+        '200':
+          description: BlockTemplate successfully created or updated.
+        '400':
+          description: Bad request, including invalid `versionIndex` or missing required fields.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: BlockTemplate not found when force updating.
+        '500':
+          description: Internal server error.
+  /client/{appId}/blockTemplates/{blockTemplateId}/versions:
+    put:
+      summary: Update the versionIndex of an existing BlockTemplate.
+      description: Updates the `versionIndex` of a specified BlockTemplate by blockTemplateId.
+      tags:
+      - Development API - Block Templates
+      parameters:
+      - in: path
+        name: blockTemplateId
+        schema:
+          type: string
+        required: true
+        description: The ID of the BlockTemplate to update.
+      - in: path
+        name: appId
+        schema:
+          type: string
+        required: true
+        description: The label of the BlockTemplate to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                versionIndex:
+                  type: number
+                  description: The version index to set.
+      responses:
+        '200':
+          description: BlockTemplate versionIndex successfully updated.
+        '400':
+          description: Invalid or missing `versionIndex`.
+        '404':
+          description: BlockTemplate not found with the specified blockTemplateId.
+        '500':
+          description: Internal server error.
+  /client/{appId}/blockTemplates/{blockTemplateId}:
+    get:
+      summary: Retrieve a BlockTemplate by blockTemplateId.
+      description: Retrieves a BlockTemplate along with the specified version based on `versionIndex`. Requires read auth
+      tags:
+      - Development API - Block Templates
+      parameters:
+      - in: path
+        name: blockTemplateId
+        schema:
+          type: string
+        required: true
+        description: The ID of the BlockTemplate to retrieve.
+      - in: path
+        name: appId
+        schema:
+          type: string
+        required: true
+        description: The ID of the app.
+      - in: query
+        name: versionIndex
+        schema:
+          type: number
+        description: The version index to retrieve. If not provided, the current versionIndex is used.
+      responses:
+        '200':
+          description: BlockTemplate retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  blockTemplate:
+                    type: object
+        '400':
+          description: Invalid versionIndex or label not found.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: BlockTemplate version not found.
+        '500':
+          description: Internal server error.
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

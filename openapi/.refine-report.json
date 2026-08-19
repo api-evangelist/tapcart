@@ -1,0 +1,29 @@
+{
+  "provider": "tapcart",
+  "sources": [
+    "tapcart-development-api-block-templates-api-openapi.yml",
+    "tapcart-development-api-blocks-api-openapi.yml",
+    "tapcart-development-api-components-api-openapi.yml",
+    "tapcart-development-api-dependencies-api-openapi.yml",
+    "tapcart-development-api-layouts-api-openapi.yml"
+  ],
+  "outputs": [
+    "tapcart-development-api-block-templates-api-openapi.yml",
+    "tapcart-development-api-blocks-api-openapi.yml",
+    "tapcart-development-api-components-api-openapi.yml",
+    "tapcart-development-api-dependencies-api-openapi.yml",
+    "tapcart-development-api-layouts-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "tapcart-development-api-block-templates-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tapcart-development-api-blocks-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tapcart-development-api-components-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tapcart-development-api-dependencies-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tapcart-development-api-layouts-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

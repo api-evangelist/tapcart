@@ -1,0 +1,281 @@
+openapi: 3.2.0
+info:
+  title: Tapcart @tapcart/app-pages Development API - Components API
+  description: '@tapcart/app-pages within the microservice systems'
+  version: 1.0.0
+servers:
+- url: https://api.tapcart.com/
+security:
+- bearerAuth: []
+tags:
+- name: Development API - Components
+paths:
+  /client/components:
+    post:
+      summary: Create an App Studio Component.
+      description: Creates a new App Studio Component or updates an existing one if `forceUpdate` is true. Requires write auth.
+      tags:
+      - Development API - Components
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                owner:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: Owner type (e.g., 'app').
+                    id:
+                      type: string
+                      description: Owner ID (required if owner type is 'app').
+                label:
+                  type: string
+                  description: The label of the Component.
+                key:
+                  type: string
+                  description: The key of the Component.
+                code:
+                  type: string
+                  description: The source code for the Component.
+                transpiledCode:
+                  type: string
+                  description: The transpiled code for the Component.
+                manifestOptionsList:
+                  type: array
+                  description: List of manifest options.
+                  items:
+                    type: object
+                forceUpdate:
+                  type: boolean
+                  description: If true, forces an update on an existing Component.
+                  default: false
+                updateDescription:
+                  type: string
+                  description: Description for the update.
+                tags:
+                  type: array
+                  description: Tags associated with the Component.
+                  items:
+                    type: string
+                status:
+                  type: string
+                  description: Status of the Component.
+      responses:
+        '200':
+          description: App Studio Component successfully created or updated.
+        '400':
+          description: Bad request, including missing required fields.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: App Studio Component not found when force updating.
+        '500':
+          description: Internal server error.
+  /client/components/{componentId}:
+    put:
+      summary: Update an App Studio Component.
+      description: Updates an existing app studio component. Requires write auth.
+      tags:
+      - Development API - Components
+      parameters:
+      - in: path
+        name: componentId
+        required: true
+        schema:
+          type: string
+        description: ID of the App Studio Component to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                owner:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                      description: Owner type (e.g., 'app').
+                    id:
+                      type: string
+                      description: Owner ID (required if owner type is 'app').
+                label:
+                  type: string
+                  description: The label of the Component.
+                key:
+                  type: string
+                  description: The key of the Component.
+                code:
+                  type: string
+                  description: The source code for the Component.
+                transpiledCode:
+                  type: string
+                  description: The transpiled code for the Component.
+                manifestOptionsList:
+                  type: array
+                  description: List of manifest options.
+                  items:
+                    type: object
+                forceUpdate:
+                  type: boolean
+                  description: If true, forces an update on an existing Component.
+                  default: false
+                updateDescription:
+                  type: string
+                  description: Description for the update.
+                tags:
+                  type: array
+                  description: Tags associated with the Component.
+                  items:
+                    type: string
+                status:
+                  type: string
+                  description: Status of the Component.
+      responses:
+        '200':
+          description: App Studio Component successfully created or updated.
+        '400':
+          description: Bad request, including missing required fields.
+        '401':
+          description: Unauthorized access.
+        '404':
+          description: App Studio Component not found when force updating.
+        '500':
+          description: Internal server error.
+  /client/{appId}/components/{componentKey}:
+    get:
+      summary: Get an App Studio Component by key.
+      description: Retrieves an App Studio Component by its key. Requires write auth.
+      tags:
+      - Development API - Components
+      parameters:
+      - in: path
+        name: componentKey
+        required: true
+        schema:
+          type: string
+        description: Key of the App Studio Component to retrieve (ex. "ProductCard")
+      - in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        description: ID of the app to retrieve component for.
+      responses:
+        '200':
+          description: App Studio Component successfully retrieved
+        '400':
+          description: Bad request, missing component key
+        '404':
+          description: App Studio Component not found
+        '500':
+          description: Internal server error
+  /client/{appId}/components:
+    get:
+      summary: Get all App Studio Components for an app
+      description: Retrieves all App Studio Components for a specific app, as well as tapcart components, if specified. Requires write auth.
+      tags:
+      - Development API - Components
+      parameters:
+      - in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        description: ID of the app to retrieve App Studio Components for
+      - in: query
+        name: includeTapcartComponents
+        schema:
+          type: boolean
+        description: Whether to include tapcart components as well
+      responses:
+        '200':
+          description: App Studio Components successfully retrieved
+        '400':
+          description: Bad request, invalid app ID
+        '500':
+          description: Internal server error
+  /client/{appId}/components/{componentKey}/versions:
+    get:
+      summary: Get versions of an App Studio Component
+      description: Retrieves all versions of an App Studio Component by its key. Requires write auth
+      tags:
+      - Development API - Components
+      parameters:
+      - in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        description: ID of the app to retrieve App Studio Components for
+      - in: path
+        name: componentKey
+        required: true
+        schema:
+          type: string
+        description: Key of the App Studio Component to retrieve versions for (ex. "ProductCard")
+      - in: query
+        name: owner
+        schema:
+          type: string
+        description: JSON string of the owner object to filter by
+      responses:
+        '200':
+          description: App Studio Component versions successfully retrieved
+        '400':
+          description: Bad request, missing component key
+        '404':
+          description: App Studio Component not found
+        '500':
+          description: Internal server error
+    put:
+      summary: Update the version index of an App Studio Component
+      description: Updates the active version of an App Studio Component by setting its version index. Requires write auth.
+      tags:
+      - Development API - Components
+      parameters:
+      - in: path
+        name: componentKey
+        required: true
+        schema:
+          type: string
+        description: Key of the App Studio Component to update (ex. "ProductCard")
+      - in: path
+        name: appId
+        required: true
+        schema:
+          type: string
+        description: ID of the app to retrieve component for.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                versionIndex:
+                  type: number
+                  description: The index of the version to set as active
+                owner:
+                  type: object
+                  description: The owner object to filter by
+      responses:
+        '200':
+          description: App Studio Component version index successfully updated
+        '400':
+          description: Bad request, missing component label or invalid version index
+        '404':
+          description: App Studio Component or version not found
+        '500':
+          description: Internal server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
