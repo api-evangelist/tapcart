@@ -13,7 +13,7 @@ image: https://cdn.prod.website-files.com/616f0a7a027baaf59a43390b/693886b1460be
 url: https://raw.githubusercontent.com/api-evangelist/tapcart/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 tags:
