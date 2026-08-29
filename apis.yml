@@ -9,6 +9,18 @@ description: 'Tapcart is a mobile commerce platform for Shopify merchants, turni
   webhook that streams shopper behavioral events to merchant endpoints; a first-party
   CLI (@tapcart/tapcart-cli) with a bundled MCP server; and published AI agent skills
   for driving that CLI from Claude Code, Cursor or Windsurf.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/616f0a7a027baaf59a43390b/693886b1460be74c44ae2eca_Open%20graphic%20home.webp
 url: https://raw.githubusercontent.com/api-evangelist/tapcart/refs/heads/main/apis.yml
 x-type: company
