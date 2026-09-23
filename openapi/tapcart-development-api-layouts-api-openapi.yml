@@ -147,6 +147,8 @@ paths:
           description: Layouts not found
         '500':
           description: Server error
+      operationId: getClientByAppIdLayouts
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

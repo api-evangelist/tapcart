@@ -12,7 +12,7 @@ tags:
 paths:
   /client/components:
     post:
-      summary: Create an App Studio Component.
+      summary: Create an App Studio Component
       description: Creates a new App Studio Component or updates an existing one if `forceUpdate` is true. Requires write auth.
       tags:
       - Development API - Components
@@ -75,9 +75,11 @@ paths:
           description: App Studio Component not found when force updating.
         '500':
           description: Internal server error.
+      operationId: postClientComponents
+      x-operation-id-source: derived
   /client/components/{componentId}:
     put:
-      summary: Update an App Studio Component.
+      summary: Update an App Studio Component
       description: Updates an existing app studio component. Requires write auth.
       tags:
       - Development API - Components
@@ -147,9 +149,11 @@ paths:
           description: App Studio Component not found when force updating.
         '500':
           description: Internal server error.
+      operationId: putClientComponentsByComponentId
+      x-operation-id-source: derived
   /client/{appId}/components/{componentKey}:
     get:
-      summary: Get an App Studio Component by key.
+      summary: Get an App Studio Component by key
       description: Retrieves an App Studio Component by its key. Requires write auth.
       tags:
       - Development API - Components
@@ -175,6 +179,8 @@ paths:
           description: App Studio Component not found
         '500':
           description: Internal server error
+      operationId: getClientByAppIdComponentsByComponentKey
+      x-operation-id-source: derived
   /client/{appId}/components:
     get:
       summary: Get all App Studio Components for an app
@@ -200,6 +206,8 @@ paths:
           description: Bad request, invalid app ID
         '500':
           description: Internal server error
+      operationId: getClientByAppIdComponents
+      x-operation-id-source: derived
   /client/{appId}/components/{componentKey}/versions:
     get:
       summary: Get versions of an App Studio Component
@@ -233,6 +241,8 @@ paths:
           description: App Studio Component not found
         '500':
           description: Internal server error
+      operationId: getClientByAppIdComponentsByComponentKeyVersions
+      x-operation-id-source: derived
     put:
       summary: Update the version index of an App Studio Component
       description: Updates the active version of an App Studio Component by setting its version index. Requires write auth.
@@ -273,6 +283,8 @@ paths:
           description: App Studio Component or version not found
         '500':
           description: Internal server error
+      operationId: putClientByAppIdComponentsByComponentKeyVersions
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

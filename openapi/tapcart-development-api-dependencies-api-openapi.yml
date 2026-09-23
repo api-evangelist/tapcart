@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tapcart @tapcart/app-pages Development API - Dependencies API
+  title: Tapcart @tapcart/app-pages Development API - Dependencies…
   description: '@tapcart/app-pages within the microservice systems'
   version: 1.0.0
 servers:
@@ -12,7 +12,7 @@ tags:
 paths:
   /client/{appId}/dependencies:
     post:
-      summary: Update dependencies for a specific app.
+      summary: Update dependencies for a specific app
       description: Updates the dependencies of an app identified by the appId. Requires write auth
       tags:
       - Development API - Dependencies
@@ -52,8 +52,10 @@ paths:
           description: No dependencies found for the given appId.
         '500':
           description: Server error.
+      operationId: postClientByAppIdDependencies
+      x-operation-id-source: derived
     get:
-      summary: Get dependencies for a specific app.
+      summary: Get dependencies for a specific app
       description: Retrieves the dependencies of an app identified by the appId.
       tags:
       - Development API - Dependencies
@@ -80,6 +82,8 @@ paths:
           description: No dependencies found for the given appId.
         '500':
           description: Server error.
+      operationId: getClientByAppIdDependencies
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:

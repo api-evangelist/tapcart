@@ -1,11 +1,7 @@
 {
   "provider": "tapcart",
   "sources": [
-    "tapcart-development-api-block-templates-api-openapi.yml",
-    "tapcart-development-api-blocks-api-openapi.yml",
-    "tapcart-development-api-components-api-openapi.yml",
-    "tapcart-development-api-dependencies-api-openapi.yml",
-    "tapcart-development-api-layouts-api-openapi.yml"
+    "_original/tapcart-client-api-openapi-original.json"
   ],
   "outputs": [
     "tapcart-development-api-block-templates-api-openapi.yml",
@@ -18,12 +14,20 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "tapcart-development-api-block-templates-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "tapcart-development-api-blocks-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "tapcart-development-api-components-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "tapcart-development-api-dependencies-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
-    "tapcart-development-api-layouts-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "tapcart-client-api-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "tapcart-client-api-openapi-original.json: declared missing tag: Development API - Block Templates",
+    "tapcart-client-api-openapi-original.json: declared missing tag: Development API - Blocks",
+    "tapcart-client-api-openapi-original.json: declared missing tag: Development API - Components",
+    "tapcart-client-api-openapi-original.json: declared missing tag: Development API - Dependencies",
+    "tapcart-client-api-openapi-original.json: declared missing tag: Development API - Layouts",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "tapcart-development-api-block-templates-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapcart-development-api-blocks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapcart-development-api-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapcart-development-api-dependencies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "tapcart-development-api-layouts-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

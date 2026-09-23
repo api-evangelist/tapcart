@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Tapcart @tapcart/app-pages Development API - Block Templates API
+  title: Tapcart @tapcart/app-pages Development API - Block…
   description: '@tapcart/app-pages within the microservice systems'
   version: 1.0.0
 servers:
@@ -12,7 +12,7 @@ tags:
 paths:
   /client/blockTemplates:
     post:
-      summary: Create a BlockTemplate.
+      summary: Create a BlockTemplate
       description: Creates a new BlockTemplate. Requires write auth.
       tags:
       - Development API - Block Templates
@@ -71,9 +71,11 @@ paths:
           description: BlockTemplate not found when force updating.
         '500':
           description: Internal server error.
+      operationId: postClientBlockTemplates
+      x-operation-id-source: derived
   /client/blockTemplates/{blockTemplateId}:
     put:
-      summary: Update a BlockTemplate.
+      summary: Update a BlockTemplate
       description: Updates an existing block template if `forceUpdate` is true. Requires write auth.
       tags:
       - Development API - Block Templates
@@ -143,9 +145,11 @@ paths:
           description: BlockTemplate not found when force updating.
         '500':
           description: Internal server error.
+      operationId: putClientBlockTemplatesByBlockTemplateId
+      x-operation-id-source: derived
   /client/{appId}/blockTemplates/{blockTemplateId}/versions:
     put:
-      summary: Update the versionIndex of an existing BlockTemplate.
+      summary: Update the versionIndex of an existing BlockTemplate
       description: Updates the `versionIndex` of a specified BlockTemplate by blockTemplateId.
       tags:
       - Development API - Block Templates
@@ -181,9 +185,11 @@ paths:
           description: BlockTemplate not found with the specified blockTemplateId.
         '500':
           description: Internal server error.
+      operationId: putClientByAppIdBlockTemplatesByBlockTemplateIdVersions
+      x-operation-id-source: derived
   /client/{appId}/blockTemplates/{blockTemplateId}:
     get:
-      summary: Retrieve a BlockTemplate by blockTemplateId.
+      summary: Retrieve a BlockTemplate by blockTemplateId
       description: Retrieves a BlockTemplate along with the specified version based on `versionIndex`. Requires read auth
       tags:
       - Development API - Block Templates
@@ -223,6 +229,8 @@ paths:
           description: BlockTemplate version not found.
         '500':
           description: Internal server error.
+      operationId: getClientByAppIdBlockTemplatesByBlockTemplateId
+      x-operation-id-source: derived
 components:
   securitySchemes:
     bearerAuth:
