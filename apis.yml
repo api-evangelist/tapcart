@@ -41,7 +41,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-05'
-modified: '2026-08-05'
+modified: '2026-10-06'
 tags:
 - Company
 - Mobile
@@ -208,6 +208,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.tapcart.com/blog/rss.xml
+  type: BlogRSS
 - type: Overlay
   url: overlays/tapcart-client-api-overlay.yaml
 - type: Website
