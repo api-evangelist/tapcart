@@ -11,9 +11,28 @@ checked:
 - https://n8n.io/integrations/tapcart/
 - https://registry.modelcontextprotocol.io/v0/servers
 - https://zapier.com/apps/tapcart/integrations
+- shopify/integrations/shopify-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/shopify-mobile-apps
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - Tapcart ‑ Mobile App Builder
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  publisher_verified:
+  - Built for Shopify
 - partner_name: MCP Registry
   partner: mcp
   partner_match: register
@@ -29,7 +48,7 @@ edges:
     registered_name: com.tapcart/mcp
     register_id: com.tapcart/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
   mcp_registry:
     servers:
     - com.tapcart/mcp
