@@ -6,10 +6,17 @@ source:
 - https://composio.dev/toolkits/tapcart
 - https://monid.ai/tools/tapcart
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/tapcart
+- https://crates.io/api/v1
 - https://monid.ai/tools/tapcart
 - https://n8n.io/integrations/tapcart/
+- https://proxy.golang.org
+- https://pypi.org/pypi
 - https://registry.modelcontextprotocol.io/v0/servers
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://zapier.com/apps/tapcart/integrations
 - shopify/integrations/shopify-integration-edges.yml
 summary: null
@@ -64,4 +71,61 @@ edges:
   - namespace-domain
   detected_by: sweep-agent-tools.py
   first_seen: '2026-10-14'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/@tapcart/app-studio-runtime
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@tapcart/app-studio-runtime'
+      version: 0.5.2
+      released: '2026-10-08'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/app-studio-runtime
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    - name: '@tapcart/app-studio-sdk'
+      version: 2.5.1
+      released: '2026-10-15'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/app-studio-sdk
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    - name: '@tapcart/mobile-components'
+      version: 0.25.3
+      released: '2026-10-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/mobile-components
+      repo_leg: domain:tapcart.com
+      publisher_leg: org:tapcart
+      matched_by: domain
+    - name: '@tapcart/webbridge-react'
+      version: 1.15.0
+      released: '2026-08-25'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/webbridge-react
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []

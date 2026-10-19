@@ -34,3 +34,61 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: tapcart-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@tapcart/app-studio-runtime
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@tapcart/app-studio-runtime'
+      version: 0.5.2
+      released: '2026-10-08'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/app-studio-runtime
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    - name: '@tapcart/app-studio-sdk'
+      version: 2.5.1
+      released: '2026-10-15'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/app-studio-sdk
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    - name: '@tapcart/mobile-components'
+      version: 0.25.3
+      released: '2026-10-16'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/mobile-components
+      repo_leg: domain:tapcart.com
+      publisher_leg: org:tapcart
+      matched_by: domain
+    - name: '@tapcart/webbridge-react'
+      version: 1.15.0
+      released: '2026-08-25'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@tapcart/webbridge-react
+      repo_leg: github-org:tapcartinc
+      publisher_leg: org:tapcart
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
