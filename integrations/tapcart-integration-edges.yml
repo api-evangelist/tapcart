@@ -6,6 +6,7 @@ source:
 - https://composio.dev/toolkits/tapcart
 - https://monid.ai/tools/tapcart
 checked:
+- gorgias/integrations/gorgias-integration-edges.yml
 - https://api.nuget.org/v3
 - https://composio.dev/toolkits/tapcart
 - https://crates.io/api/v1
@@ -22,55 +23,6 @@ checked:
 summary: null
 marketplace_apps: []
 edges:
-- partner_name: Shopify (own)
-  partner: shopify
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://apps.shopify.com/shopify-mobile-apps
-  mirror_of: shopify/integrations/shopify-integration-edges.yml
-  apps:
-  - Tapcart ‑ Mobile App Builder
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  publisher_verified:
-  - Built for Shopify
-- partner_name: MCP Registry
-  partner: mcp
-  partner_match: register
-  type: register
-  channel: standard-directory
-  relationship: standard-participant
-  direction: partner-built
-  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.tapcart
-  contract_reference:
-    register: registry.modelcontextprotocol.io
-    spec_file: null
-    role: mcp-server-listing
-    registered_name: com.tapcart/mcp
-    register_id: com.tapcart/mcp
-    detected_by: sweep-agent-tools.py
-    detected: '2026-10-15'
-  mcp_registry:
-    servers:
-    - com.tapcart/mcp
-    hosted_remote: 1
-    local_package: 0
-    transports:
-      streamable-http: 1
-    auth_declared: 0
-    catalog_declared: true
-    namespace_domains:
-    - tapcart.com
-  matched_by:
-  - namespace-domain
-  detected_by: sweep-agent-tools.py
-  first_seen: '2026-10-14'
 - partner_name: npm registry
   partner: npm
   partner_match: register
@@ -128,4 +80,69 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: MCP Registry
+  partner: mcp
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://registry.modelcontextprotocol.io/v0/servers?search=com.tapcart
+  contract_reference:
+    register: registry.modelcontextprotocol.io
+    spec_file: null
+    role: mcp-server-listing
+    registered_name: com.tapcart/mcp
+    register_id: com.tapcart/mcp
+    detected_by: sweep-agent-tools.py
+    detected: '2026-10-19'
+  mcp_registry:
+    servers:
+    - com.tapcart/mcp
+    hosted_remote: 1
+    local_package: 0
+    transports:
+      streamable-http: 1
+    auth_declared: 0
+    catalog_declared: true
+    namespace_domains:
+    - tapcart.com
+  matched_by:
+  - namespace-domain
+  detected_by: sweep-agent-tools.py
+  first_seen: '2026-10-14'
+- partner_name: Gorgias (own)
+  partner: gorgias
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.gorgias.com/apps/tapcart
+  mirror_of: gorgias/integrations/gorgias-integration-edges.yml
+  apps:
+  - Tapcart
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+- partner_name: Shopify (own)
+  partner: shopify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://apps.shopify.com/shopify-mobile-apps
+  mirror_of: shopify/integrations/shopify-integration-edges.yml
+  apps:
+  - Tapcart ‑ Mobile App Builder
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  publisher_verified:
+  - Built for Shopify
 templates: []
