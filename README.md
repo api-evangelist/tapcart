@@ -64,15 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Tapcart is a mobile commerce platform for Shopify merchants, turning a Shopify storefront into a
-native iOS and Android shopping app. Beyond the no-code app builder it ships a real developer
-platform: App Studio (a React-based custom block and component framework), a public Development API
-at `api.tapcart.com`, an Insights metrics API, a clickstream webhook, a first-party CLI with a
-bundled MCP server, and published AI agent skills.
+Tapcart is a mobile commerce platform for Shopify merchants, turning a Shopify storefront into a native iOS and Android shopping app. Beyond the no-code app builder, Tapcart ships a developer platform: App Studio, a React-based custom block and component framework; a public Development API at api.tapcart.com for creating, versioning and publishing App Studio components, block templates, dependencies and layouts; an Insights (metrics) API for app analytics; a clickstream webhook that streams shopper behavioral events to merchant endpoints; a first-party CLI (@tapcart/tapcart-cli) with a bundled MCP server; and published AI agent skills for driving that CLI from Claude Code, Cursor or Windsurf.
 
-- Website — https://www.tapcart.com/
-- Developer portal — https://dev.tapcart.com/
-- API reference — https://dev.tapcart.com/reference
-- GitHub — https://github.com/tapcartinc
-- Status — https://status.tapcart.co/
-- Security disclosure — https://security.tapcart.com/vulnerability-program.html
+**Areas:** Company · Mobile · Commerce · Shopify · E-Commerce · Mobile App · Push Notifications · Analytics · Webhook · Developer Tools
+
+## Tapcart on APIs.io
+
+Everything profiled for Tapcart is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/tapcart/](https://apis.io/providers/tapcart/)** — or go straight to one of the APIs or properties below.
+
+### APIs (7)
+
+- [Tapcart Insights Metrics API](https://apis.io/apis/tapcart/insights-metrics-api/) — The Insights (Insights Pro) Metrics API returns aggregated analytics for a Tapcart app from a single POST endpoint whose response shape varies by the…
+- [Tapcart Clickstream Webhook](https://apis.io/apis/tapcart/clickstream-webhook/) — Tapcart's clickstream webhook delivers realtime shopper behavioral events from the mobile app to an HTTPS endpoint the merchant configures in the Tapcart…
+- [Tapcart Development API - Block Templates API](https://apis.io/apis/tapcart/tapcart-development-api-block-templates-api/) — The Development API - Block Templates API from Tapcart — 4 operation(s) for development api - block templates.
+- [Tapcart Development API - Blocks API](https://apis.io/apis/tapcart/tapcart-development-api-blocks-api/) — The Development API - Blocks API from Tapcart — 1 operation(s) for development api - blocks.
+- [Tapcart Development API - Components API](https://apis.io/apis/tapcart/tapcart-development-api-components-api/) — The Development API - Components API from Tapcart — 5 operation(s) for development api - components.
+- [Tapcart Development API - Dependencies API](https://apis.io/apis/tapcart/tapcart-development-api-dependencies-api/) — The Development API - Dependencies API from Tapcart — 1 operation(s) for development api - dependencies.
+- [Tapcart Development API - Layouts API](https://apis.io/apis/tapcart/tapcart-development-api-layouts-api/) — The Development API - Layouts API from Tapcart — 1 operation(s) for development api - layouts.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Tapcart Webhooks](https://apis.io/asyncapis/tapcart/tapcart-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [tapcart-cli](https://apis.io/servers/tapcart/tapcart-cli/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Tapcart @tapcart/app-pages Development API - Block Templates API](https://apis.io/collections/tapcart/open-tapcart-development-api-block-templates-api/)
+- [Tapcart @tapcart/app-pages Development API - Blocks API](https://apis.io/collections/tapcart/open-tapcart-development-api-blocks-api/)
+- [Tapcart @tapcart/app-pages Development API - Components API](https://apis.io/collections/tapcart/open-tapcart-development-api-components-api/)
+- [Tapcart @tapcart/app-pages Development API - Dependencies API](https://apis.io/collections/tapcart/open-tapcart-development-api-dependencies-api/)
+- [Tapcart @tapcart/app-pages Development API - Layouts API](https://apis.io/collections/tapcart/open-tapcart-development-api-layouts-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Tapcart Client Api Overlay](https://apis.io/overlays/tapcart/tapcart-client-api-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Tapcart Authentication](https://apis.io/security/tapcart/tapcart-authentication/)
+- [Tapcart Domain Security](https://apis.io/security/tapcart/tapcart-domain-security/)
+- [Tapcart Vulnerability Disclosure](https://apis.io/security/tapcart/tapcart-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.tapcart.com/)
+- [Documentation](https://dev.tapcart.com/docs)
+- [Getting started](https://dev.tapcart.com/docs/app-studio-quick-start)
+- [API reference](https://dev.tapcart.com/reference)
+- [Pricing](https://www.tapcart.com/pricing)
+- [Sign up](https://www.tapcart.com/get-started)
+- [Support](https://help.tapcart.com/en/)
+- [Blog](https://www.tapcart.com/blog)
+- [Security](https://security.tapcart.com/vulnerability-program.html)
+- [Terms of service](https://www.tapcart.com/terms-of-use)
+- [Privacy policy](https://www.tapcart.com/privacy-policy)
+- [GitHub](https://github.com/tapcartinc)
+- [Status](https://status.tapcart.co/)
+
+## API Evangelist rating
+
+**Kin Score 51.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 54.4 |
+| Contract governance | 4.5 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 44.7 |
+
+**Agent readiness 31.5** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/tapcart/](https://apis.io/providers/tapcart/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Tapcart: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/tapcart/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
